@@ -10,7 +10,7 @@ export const addPublication = async (req, res) => {
       [id, title, content, public_]
     );
 
-    res.sendStatus(204);
+    return res.send({id_publication: result.insertId, title, content, public_, jac_id: id});
   } catch (error) {
     return res.status(500).json([error.message]);
   }

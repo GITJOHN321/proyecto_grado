@@ -21,12 +21,12 @@ export const addRole = async (req, res) => {
   const { id } = req.user;
 
   try {
-    await pool.query("INSERT INTO roles(jac_id, rolname) VALUES(?,?)", [
+    const [result] = await pool.query("INSERT INTO roles(jac_id, rolname) VALUES(?,?)", [
       id,
       rolname,
     ]);
 
-    res.sendStatus(204);
+    res.send({id_role: result. insertId, rolname, jac_id: id });
   } catch (error) {
     return res.status(500).json([error.message]);
   }
