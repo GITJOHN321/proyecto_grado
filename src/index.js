@@ -6,6 +6,7 @@ import rolRoutes from "./routes/rol.routes.js"
 import publicationRoutes from "./routes/publi.routes.js"
 import commentRoutes from "./routes/comment.routes.js"
 import proyectRoutes from "./routes/proyect.routes.js"
+import notesProyectRoutes from "./routes/note_proyect.routes.js"
 
 const app = express();
 
@@ -17,5 +18,6 @@ app.use("/api/", rolRoutes);
 app.use("/api/", publicationRoutes);
 app.use("/api/", commentRoutes);
 app.use("/api/", proyectRoutes);
+app.use("/api/", notesProyectRoutes);
 console.log("server listen on PORT " + process.env.PORT);
 app.listen(process.env.PORT);

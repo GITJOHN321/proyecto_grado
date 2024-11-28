@@ -13,7 +13,8 @@ CREATE TABLE jacs (
     user_id INTEGER PRIMARY KEY,
     id_verify BOOLEAN DEFAULT FALSE,
     personery VARCHAR(50) UNIQUE NOT NULL,
-    location VARCHAR(50) NOT NULL,
+    commune INTEGER NOT NULL,
+    neighborhood VARCHAR(100) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user_base(user_id) ON DELETE CASCADE
 );
 CREATE TABLE users (
@@ -38,7 +39,7 @@ CREATE TABLE publications(
     jac_id INTEGER NOT NULL, 
     title VARCHAR(100) NOT NULL,
     content TEXT NOT NULL,
-    public BOOLEAN,
+    public BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (jac_id) REFERENCES jacs(user_id) ON DELETE CASCADE
@@ -77,4 +78,12 @@ CREATE TABLE finished_proyects(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (proyect_id) REFERENCES proyects(proyect_id) ON DELETE CASCADE
 );
+
+CREATE TABLE notes_proyects{
+    note_id INTEGER PRIMARY KEY,
+    proyect_id INTEGER NOT NULL, 
+    title VARCHAR(100) NOT NULL, 
+    description TEXT NOT NULL,
+    FOREIGN KEY (proyect_id) REFERENCES proyects(proyect_id) ON DELETE CASCADE
+}
 

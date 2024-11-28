@@ -6,8 +6,8 @@ import { createAccesToken, getTokenData } from "../libs/jwt.js";
 import { TYPE_USER, TYPE_JAC } from "../config.js";
 
 export const register_jac = async (req, res) => {
-  const { username, email, password, password2, personery, telephone } = req.body;
-
+  const { username, email, password, password2, personery, telephone, commune, neighborhood } = req.body;
+  console.log(commune)
   try {
     if (password !== password2)
       return res.status(500).json(["passwords do not match"]);
@@ -19,8 +19,8 @@ export const register_jac = async (req, res) => {
     );
    
     const [result] = await pool.query(
-      "INSERT INTO jacs(user_id, personery) VALUES (?,?)",
-      [user_base.insertId, personery]
+      "INSERT INTO jacs(user_id, personery, commune, neighborhood) VALUES (?,?,?,?)",
+      [user_base.insertId, personery, commune, neighborhood]
     );
   
 
@@ -29,7 +29,9 @@ export const register_jac = async (req, res) => {
       username,
       email,
       personery,
-      telephone
+      telephone,
+      commune,
+      neighborhood
     });
   } catch (error) {
     return res.status(500).json([error.message]);

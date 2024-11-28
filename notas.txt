@@ -1,0 +1,59 @@
+{
+"email": "pablo@gmail.com",
+"password":"PASSpablo1",
+"password2":"PASSpablo1",
+"user_type": "user_user",
+"telephone": 3164905131,
+"username" :"pablo",
+"user_last_name": "hernandez",
+"birthdate":"2020-02-29",
+"dni": "dfdsafad1",
+"old_password":"PASSpablo1",
+"new_password":"PASSpablo2",
+"new_password2":"PASSpablo2"
+}{
+"email": "junta@gmail.com",
+"password":"PASSpablo1",
+"password2":"PASSpablo1",
+"user_type": "user_jac",
+"telephone": 3164905131,
+"username" :"Junta Cordoba",
+"commune": 1,
+"neighborhood":"ciudad cordoba",
+"personery": "dfdsafad1",
+"old_password":"PASSjunta1",
+"new_password":"PASSjunta2",
+"new_password2":"PASSjunta2"
+}{
+"rolname":"tesorero2",
+"email": "pablo@gmail.com",
+"rol_id": 3
+}{
+  "title":"primera publicacion",
+  "content":"publicacion de prueba",
+  "public_": true
+}
+############################## CREAR PROYECTO ########################
+{
+    "name_proyect": "cortar pasto",
+    "location": "parque jaramillo",
+    "description": "pasto largo",
+    "object": "cortar el pasto",
+    "state": "propuesta",
+    "initial_budget": 50.00,
+    "stimated_time": "1 semana",
+    "start_date": "2020-02-29" 
+}
+############################## BUSCAR PROYECTO ########################
+{
+    "jac_id": 2,
+    "state": "propuesta"
+}
+############################ CREAR PROYECTO FINALIZADO ########################
+{
+    "proyect_id_id": 2,
+    "state": "propuesta",
+    "end_date": "2020-03-29",
+    "final_budget": 50.00, 
+    "notes": "El pasto se corto"
+}
