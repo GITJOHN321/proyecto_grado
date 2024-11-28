@@ -13,6 +13,7 @@ CREATE TABLE jacs (
     user_id INTEGER PRIMARY KEY,
     id_verify BOOLEAN DEFAULT FALSE,
     personery VARCHAR(50) UNIQUE NOT NULL,
+    location VARCHAR(50) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user_base(user_id) ON DELETE CASCADE
 );
 CREATE TABLE users (
@@ -48,6 +49,32 @@ CREATE TABLE comments(
     user_id INTEGER NOT NULL, 
     content TEXT NOT NULL, 
     status BOOLEAN DEFAULT TRUE, 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (publication_id) REFERENCES publications(publication_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES user_base(user_id) ON DELETE CASCADE
 );
+
+CREATE TABLE proyects(
+    proyect_id INTEGER AUTO_INCREMENT PRIMARY KEY,  
+    jac_id INTEGER NOT NULL, 
+    name_proyect VARCHAR(50) NOT NULL,
+    location VARCHAR(50) NOT NULL,
+    description TEXT NOT NULL,
+    object TEXT NOT NULL, 
+    state ENUM('propuesta', 'proceso', 'finalizado') DEFAULT 'propuesta',
+    initial_budget DECIMAL(10,2),
+    stimated_time TEXT,
+    start_date DATE, 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (jac_id) REFERENCES jacs(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE finished_proyects(
+    proyect_id INTEGER PRIMARY KEY, 
+    end_date DATE NOT NULL,
+    final_budget DECIMAL(10,3),
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (proyect_id) REFERENCES proyects(proyect_id) ON DELETE CASCADE
+);
+
