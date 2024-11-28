@@ -11,7 +11,6 @@ CREATE TABLE user_base(
 );
 CREATE TABLE jacs (
     user_id INTEGER PRIMARY KEY,
-    jac_name VARCHAR(50) NOT NULL,
     id_verify BOOLEAN DEFAULT FALSE,
     personery VARCHAR(50) UNIQUE NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user_base(user_id) ON DELETE CASCADE
