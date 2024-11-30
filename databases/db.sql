@@ -79,11 +79,11 @@ CREATE TABLE finished_proyects(
     FOREIGN KEY (proyect_id) REFERENCES proyects(proyect_id) ON DELETE CASCADE
 );
 
-CREATE TABLE notes_proyects{
-    note_id INTEGER PRIMARY KEY,
+CREATE TABLE notes_proyects(
+    note_id INTEGER PRIMARY KEY AUTO_INCREMENT,
     proyect_id INTEGER NOT NULL, 
     title VARCHAR(100) NOT NULL, 
     description TEXT NOT NULL,
     FOREIGN KEY (proyect_id) REFERENCES proyects(proyect_id) ON DELETE CASCADE
-}
+);
 

@@ -3,11 +3,12 @@ import { pool } from "../db.js";
 export const createNoteProyect = async (req, res) => {
   const { proyect_id, title, description } = req.body;
   try {
+    
     const [result] = await pool.query(
       "INSERT INTO notes_proyects(proyect_id, title, description) VALUES(?,?,?)",
       [proyect_id, title, description]
     );
-
+    
     return res.send({ id: result.insertId, proyect_id, title, description });
   } catch (error) {
     return res.status(500).json([error.message]);
@@ -44,7 +45,7 @@ export const updateNoteProyect = async (req, res) => {
   try {
     const [result] = await pool.query(
       "UPDATE notes_proyects SET ? WHERE note_id = ?",
-      [req.params.id]
+      [req.body,req.params.id]
     );
 
     return res.sendStatus(204);
