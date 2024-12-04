@@ -2,10 +2,10 @@
   "name": "proyecto_grado",
   "version": "1.0.0",
   "main": "index.js",
-  "type" : "module",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev" : "nodemon --env-file=src/.env src/index.js"
+    "dev": "nodemon --env-file=src/.env src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^4.21.1",
+    "express-fileupload": "^1.5.1",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "mysql2": "^3.11.4",
