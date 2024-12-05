@@ -161,7 +161,7 @@ export const verifyToken = async (req, res) => {
     if (!table) return res.status(400).json(["table not found"]);
 
     const [userFound] = await pool.query(
-      `SELECT * FROM ${table}s WHERE ${table}_id = ?`,
+      `SELECT * FROM ${table}s WHERE user_id = ?`,
       [user.id]
     );
 
