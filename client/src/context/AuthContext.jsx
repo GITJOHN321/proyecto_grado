@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { registerRequest } from "../api/auth";
+import { registerRequest, registerJacRequest, loginRequest, verifyTokenRequest } from "../api/auth";
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
@@ -33,10 +33,38 @@ export const AuthProvider = ({ children }) => {
       setErrors(error.response.data);
     }
   };
+  const signupJac = async (user) => {
+    try {
+      const res = await registerJacRequest(user);
+      console.log(res.data);
+      return res.data;
+      //setUser(res.data);
+      //setIsAuthenticated(true);
+    } catch (error) {
+   
+      setErrors(error.response.data);
+    }
+  };
+  const signin = async (user) => {
+    try {
+      const res = await loginRequest(user);
+
+      setIsAuthenticated(true);
+      //console.log(res, isAuthenticated);
+      setUser(res.data);
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
+  const logout = () => {
+    Cookies.remove("token");
+    setIsAuthenticated(false);
+    setUser(null);
+  };
   useEffect(() => {
     async function checkLogin() {
       const cookies = Cookies.get();
-
+      
       if (!cookies.token) {
         setIsAuthenticated(false);
         setLoading(false);
@@ -47,12 +75,6 @@ export const AuthProvider = ({ children }) => {
         const res = await verifyTokenRequest(cookies.token);
         console.log(res.data);
         if (!res.data) {
-          setIsAuthenticated(false);
-          setLoading(false);
-          setUser(null);
-          return;
-        }
-        if (!res.data.status) {
           setIsAuthenticated(false);
           setLoading(false);
           setUser(null);
@@ -73,7 +95,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signup, user, loading,  isAuthenticated, errors, resetErrors }}
+      value={{ signup,signupJac,signin, logout, user, loading,  isAuthenticated, errors, resetErrors }}
     >
       {children}
     </AuthContext.Provider>

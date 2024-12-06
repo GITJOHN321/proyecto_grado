@@ -18,7 +18,7 @@ import {
 } from "../schemas/auth.schema.js";
 const router = Router();
 router.post("/register", validateSchema(registerSchema), register);
-router.post("/register_jac",validateSchema(registerJacSchema), register_jac);
+router.post("/register-jac",validateSchema(registerJacSchema), register_jac);
 router.post("/login", validateSchema(loginSchema), login);
 router.post("/logout", logout);
 router.post(

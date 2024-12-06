@@ -24,8 +24,27 @@ body {
     background-color: var(--color4);
     color: var(--color1);
 }
-.center{
-    margin: 0 auto !important;
+.nav{
+    background-color: var(--color1);
+    color: var(--color4);
+ 
+}
+.Dropdown-menu.active{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: 500ms ease;
+}
+.Dropdown-menu.inactive{
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: 500ms ease;
+
+}
+
+li{
+    align-items: end;
 }
 @layer utilities {
 
@@ -46,11 +65,23 @@ body {
     }
 
     .container-form {
-        @apply flex my-4 items-center justify-center
+        @apply flex my-4 items-center justify-center 
     }
 
     .container-into-form {
-        @apply max-w-md py-10 rounded-md bg-white border-2
+        @apply max-w-md py-10 rounded-md bg-white border-2 shadow-lg
+    }
+    .container-form-center{
+        @apply flex h-[calc(100vh-100px)] items-center justify-center
+    }
+    .link{
+        @apply font-medium text-sky-500
+    }
+    .Dropdown-item{
+        @apply flex w-full items-center hover:bg-blue-200 cursor-pointer  py-2 px-10 text-zinc-900
+    }
+    .Dropdown-menu{
+        @apply z-10 absolute top-14 right-0 rounded-lg py-2  text-nowrap  bg-slate-100 border-[#001336] border-2
     }
 
 

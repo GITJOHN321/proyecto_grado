@@ -12,23 +12,30 @@ function RegisterPage() {
 
   const {
     signup,
-    isAuthenticated,
+    signupJac,
     errors: RegisterErrors,
     resetErrors,
   } = useAuth();
   const [activeForm, setActiveForm] = useState(false);
   const navigation = useNavigate();
 
- const changeForm = (e) =>{
+  const changeForm = (e) => {
     e.preventDefault();
-    resetErrors()
-    setActiveForm((state) => !state)
- }
+    resetErrors();
+    setActiveForm((state) => !state);
+  };
   const onSubmit = handleSubmit(async (values) => {
     values.telephone = Number(values.telephone);
-    const data = await signup(values);
+    let data = {};
+    if (!activeForm) {
+      data = await signup(values);
+    } else {
+      values.comune = Number(values.comune);
+      data = await signupJac(values);
+      console.log(values);
+    }
     if (data) {
-      // navigation("/login");
+      navigation("/login");
       resetErrors();
     }
   });
@@ -38,10 +45,13 @@ function RegisterPage() {
       <div className="container-into-form">
         <h1 className="head ">Registrate </h1>
         <div className="flex justify-center">
-        <button onClick={(e) => changeForm(e)} className="button">{!activeForm ? ("Registrarse como JAC") : ("Registrarse como Usuario")}</button>
+          <button onClick={(e) => changeForm(e)} className="button">
+            {!activeForm ? "Registrarse como JAC" : "Registrarse como Usuario"}
+          </button>
         </div>
+
         {!activeForm ? (
-            <form className="px-10" onSubmit={onSubmit}>
+          <form className="px-10" onSubmit={onSubmit}>
             {RegisterErrors.map((error, i) => (
               <div className="bg-red-500 p-2 text-white" key={i}>
                 {error}
@@ -56,16 +66,20 @@ function RegisterPage() {
                   placeholder={field.name}
                 />
                 {Object.keys(errors).find((key) => key === field.name) && (
-                  <span className="text-red-500"> {field.name} is required </span>
+                  <span className="text-red-500">
+                    {" "}
+                    {field.name} is required{" "}
+                  </span>
                 )}
               </span>
             ))}
-  
+
             <button type="submit" className="button block">
               Register
             </button>
           </form>
-        ): (<form className="px-10" onSubmit={onSubmit}>
+        ) : (
+          <form className="px-10" onSubmit={onSubmit}>
             {RegisterErrors.map((error, i) => (
               <div className="bg-red-500 p-2 text-white" key={i}>
                 {error}
@@ -80,15 +94,26 @@ function RegisterPage() {
                   placeholder={field.name}
                 />
                 {Object.keys(errors).find((key) => key === field.name) && (
-                  <span className="text-red-500"> {field.name} is required </span>
+                  <span className="text-red-500">
+                    {" "}
+                    {field.name} is required{" "}
+                  </span>
                 )}
               </span>
             ))}
-  
+
             <button type="submit" className="button block">
               Register
             </button>
-          </form>)}
+          </form>
+        )}
+        <br />
+        <p className="flex gap-x-2 justify-between px-10">
+          Already have an account?{" "}
+          <Link to="/login" className=" link">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );

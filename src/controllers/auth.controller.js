@@ -78,13 +78,12 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const { email, password, user_type } = req.body;
+  const { email, password } = req.body;
 
   try {
-    const table = verify_table(user_type);
-    if (!table) return res.status(400).json(["type user not found"]);
+    
     const [userFound] = await pool.query(
-      `SELECT user_base.email, user_base.password, user_base.user_type, user_base.telephone, user_base.double_factor, user_base.status, user_base.created_at, ${table}s.* FROM ${table}s RIGHT JOIN user_base ON ${table}s.user_id = user_base.user_id WHERE email = ?`,
+      `SELECT * FROM user_base WHERE email = ?`,
       [email]
     );
 

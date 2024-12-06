@@ -16,6 +16,6 @@ export const LIST_REGISTER_JAC = [
     { name: "password2", type: "password" },
     { name: "personery", type: "text" },
     { name: "telephone", type: "tel" },
-    { name: "comune", type: "number" },
+    { name: "commune", type: "number" },
     { name: "neighborhood", type: "text" },
   ];
