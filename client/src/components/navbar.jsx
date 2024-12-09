@@ -16,9 +16,11 @@ function Navbar() {
     if (isAuthenticated) {
       let handler = (e) => {
         if (!menuRef.current.contains(e.target)) {
-          setIsOpen(false);
+          console.log(menuRef.current.contains(e.target))
+          return setIsOpen(false);
         }
       };
+ 
       document.addEventListener("mousedown", handler);
 
       return () => {
@@ -28,7 +30,7 @@ function Navbar() {
   }, []);
 
   return (
-    <nav className="nav px-20 py-5 ">
+    <nav className="nav px-50 py-5 ">
       <ul className="grid grid-cols-3">
         <li className="flex justify-center">
           <Link to="/" className="text-2xl font-bold hover:text-sky-500 text-nowrap">
@@ -38,7 +40,7 @@ function Navbar() {
         <li className="flex justify-center">
           {isAuthenticated && (
             <Link to="/" className="text-xl font-bold hover:text-sky-500 ">
-              Welcome <b>hola</b>
+              Bienvenido <b>{user.username}</b>
             </Link>
           )}
         </li>
@@ -53,6 +55,12 @@ function Navbar() {
                 <ul
                   className={`Dropdown-menu ${isOpen ? "active" : "inactive"}`}
                 >
+                  <DropdownItem
+                   
+                    favicon={<MdLogout />}
+                    url={"/settings"}
+                    text={"Settings"}
+                  />
                   <DropdownItem
                     onClick={() => {
                       setIsOpen(false);

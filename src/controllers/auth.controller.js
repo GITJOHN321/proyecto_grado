@@ -1,4 +1,4 @@
-import { pool } from "../db.js";
+import { pool, conex } from "../db.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { verify_table } from "../libs/verifyTable.js";
@@ -6,24 +6,35 @@ import { createAccesToken, getTokenData } from "../libs/jwt.js";
 import { TYPE_USER, TYPE_JAC } from "../config.js";
 
 export const register_jac = async (req, res) => {
-  const { username, email, password, password2, personery, telephone, commune, neighborhood } = req.body;
-  console.log(commune)
+  const {
+    username,
+    email,
+    password,
+    password2,
+    personery,
+    telephone,
+    commune,
+    neighborhood,
+  } = req.body;
+  console.log(commune);
   try {
     if (password !== password2)
       return res.status(500).json(["passwords do not match"]);
 
     const password_hash = await bcrypt.hash(password, 10);
-    const [user_base] = await pool.query(
+
+    await conex.beginTransaction();
+
+    const [user_base] = await conex.query(
       "INSERT INTO user_base(email, username, password, user_type, telephone) VALUES(?,?,?,?,?)",
-      [email,username, password_hash, TYPE_JAC, telephone]
+      [email, username, password_hash, TYPE_JAC, telephone]
     );
-   
-    const [result] = await pool.query(
+
+    const [result] = await conex.query(
       "INSERT INTO jacs(user_id, personery, commune, neighborhood) VALUES (?,?,?,?)",
       [user_base.insertId, personery, commune, neighborhood]
     );
-  
-
+    await conex.commit();
     res.json({
       id: user_base.insertId,
       username,
@@ -31,10 +42,13 @@ export const register_jac = async (req, res) => {
       personery,
       telephone,
       commune,
-      neighborhood
+      neighborhood,
     });
   } catch (error) {
+    await conex.rollback();
     return res.status(500).json([error.message]);
+  } finally {
+    await conex.release();
   }
 };
 export const register = async (req, res) => {
@@ -48,21 +62,25 @@ export const register = async (req, res) => {
     birthdate,
     dni,
   } = req.body;
+
   try {
     if (password !== password2)
       return res.status(500).json(["passwords do not match"]);
 
     const password_hash = await bcrypt.hash(password, 10);
 
-    const [user_base] = await pool.query(
+    await conex.beginTransaction();
+
+    const [user_base] = await conex.query(
       "INSERT INTO user_base(email,username, password, user_type, telephone) VALUES(?,?,?,?,?)",
       [email, username, password_hash, TYPE_USER, telephone]
     );
-    const [result] = await pool.query(
+    const [result] = await conex.query(
       "INSERT INTO users(user_id, user_last_name, birthdate, dni) VALUES (?,?,?,?)",
       [user_base.insertId, user_last_name, birthdate, dni]
     );
 
+    await conex.commit();
     res.json({
       id: user_base.insertId,
       telephone,
@@ -73,7 +91,10 @@ export const register = async (req, res) => {
       dni,
     });
   } catch (error) {
+    await conex.rollback();
     return res.status(500).json([error.message]);
+  } finally {
+    await conex.release();
   }
 };
 
@@ -81,7 +102,6 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    
     const [userFound] = await pool.query(
       `SELECT * FROM user_base WHERE email = ?`,
       [email]
@@ -124,7 +144,6 @@ export const changePasswordFromPerfil = async (req, res) => {
     if (old_password === new_password2)
       return res.status(400).json(["new password don't same to old_password"]);
 
-    
     const [userFound] = await pool.query(
       `SELECT * FROM user_base WHERE user_id = ?`,
       [id]
@@ -160,7 +179,7 @@ export const verifyToken = async (req, res) => {
     if (!table) return res.status(400).json(["table not found"]);
 
     const [userFound] = await pool.query(
-      `SELECT * FROM ${table}s WHERE user_id = ?`,
+      `SELECT  ${table}s.* , user_base.* FROM ${table}s JOIN user_base ON ${table}s.user_id = user_base.user_id WHERE ${table}s.user_id = ?`,
       [user.id]
     );
 

@@ -23,7 +23,9 @@ CREATE TABLE users (
     birthdate DATE NOT NULL,
     dni VARCHAR(20) UNIQUE NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user_base(user_id) ON DELETE CASCADE
-);
+); 
+
+
 CREATE TABLE roles(
     rol_id INTEGER AUTO_INCREMENT PRIMARY KEY,
     jac_id INTEGER NOT NULL,

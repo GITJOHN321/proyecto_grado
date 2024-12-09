@@ -46,6 +46,7 @@ body {
 li{
     align-items: end;
 }
+
 @layer utilities {
 
     .inputFull {
@@ -63,7 +64,7 @@ li{
     .head::after {
         @apply content-[''] bg-sky-500 h-[100%] w-[5%] lg:w-[3%] left-0 -top-[0px] absolute
     }
-
+   
     .container-form {
         @apply flex my-4 items-center justify-center 
     }
@@ -83,6 +84,11 @@ li{
     .Dropdown-menu{
         @apply z-10 absolute top-14 right-0 rounded-lg py-2  text-nowrap  bg-slate-100 border-[#001336] border-2
     }
-
+    .button-list{
+        @apply text-2xl font-bold hover:text-sky-500 text-nowrap align-text-bottom px-5 pb-2 border-b-4
+    }
+    .button-list.active{
+        @apply border-4 bg-slate-100 border-b-slate-100 
+    }
 
 }
