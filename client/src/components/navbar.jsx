@@ -16,11 +16,11 @@ function Navbar() {
     if (isAuthenticated) {
       let handler = (e) => {
         if (!menuRef.current.contains(e.target)) {
-          console.log(menuRef.current.contains(e.target))
+          console.log(menuRef.current.contains(e.target));
           return setIsOpen(false);
         }
       };
- 
+
       document.addEventListener("mousedown", handler);
 
       return () => {
@@ -30,19 +30,29 @@ function Navbar() {
   }, []);
 
   return (
-    <nav className="nav px-50 py-5 ">
+    <nav className="nav px-50 pb-5 pt-1 ">
+      {isAuthenticated && (
+        <Link
+          to="/"
+          className="flex justify-center text-xl font-bold hover:text-sky-500 "
+        >
+          Bienvenido <b>{user.username}</b>
+        </Link>
+      )}
+
       <ul className="grid grid-cols-3">
         <li className="flex justify-center">
-          <Link to="/" className="text-2xl font-bold hover:text-sky-500 text-nowrap">
+          <Link
+            to="/"
+            className="text-2xl font-bold hover:text-sky-500 text-nowrap"
+          >
             Proyecto JAC
           </Link>
         </li>
         <li className="flex justify-center">
-          {isAuthenticated && (
-            <Link to="/" className="text-xl font-bold hover:text-sky-500 ">
-              Bienvenido <b>{user.username}</b>
-            </Link>
-          )}
+          <Link className="px-2" to="/">INICIO</Link>
+          <Link className="px-2" to="/Proyects">PROYECTOS</Link>
+          <Link className="px-2" to="/jacs">JACS</Link>
         </li>
         <li className="flex justify-center">
           {isAuthenticated ? (
@@ -56,9 +66,8 @@ function Navbar() {
                   className={`Dropdown-menu ${isOpen ? "active" : "inactive"}`}
                 >
                   <DropdownItem
-                   
                     favicon={<MdLogout />}
-                    url={"/settings"}
+                    url={"/settings/cuenta"}
                     text={"Settings"}
                   />
                   <DropdownItem

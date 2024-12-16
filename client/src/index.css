@@ -23,6 +23,7 @@ body {
 .input {
     background-color: var(--color4);
     color: var(--color1);
+    padding-inline: 1rem;
 }
 .nav{
     background-color: var(--color1);
@@ -46,11 +47,15 @@ body {
 li{
     align-items: end;
 }
+.input.disabled{
+    color: red;
+}
+
 
 @layer utilities {
 
     .inputFull {
-        @apply w-full input px-4 py-2 rounded-md my-2 border-2 border-black
+        @apply input w-full px-4 py-2 rounded-md my-2 border-2 border-black
     }
 
     .button {
@@ -70,7 +75,7 @@ li{
     }
 
     .container-into-form {
-        @apply max-w-md py-10 rounded-md bg-white border-2 shadow-lg
+        @apply  py-10 rounded-md bg-white border-2 shadow-lg
     }
     .container-form-center{
         @apply flex h-[calc(100vh-100px)] items-center justify-center
@@ -89,6 +94,15 @@ li{
     }
     .button-list.active{
         @apply border-4 bg-slate-100 border-b-slate-100 
+    }
+    td{
+        @apply px-5
+    }
+    .title{
+        @apply text-2xl font-bold
+    }
+    .subtitle{
+        @apply text-sm font-thin
     }
 
 }

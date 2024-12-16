@@ -16,7 +16,8 @@ export const createProyect = async (req, res) => {
   const { id } = req.user;
 
   try {
-    if(state === FINISHED_STATE) return res.send(["No puedes crear un proyecto finalizado"])
+    if (state === FINISHED_STATE)
+      return res.send(["No puedes crear un proyecto finalizado"]);
     const [result] = await pool.query(
       "INSERT INTO proyects(jac_id,name_proyect, location, description, object, state, initial_budget, stimated_time, start_date) VALUES (?,?,?,?,?,?,?,?,?) ",
       [
@@ -68,6 +69,29 @@ export const getProyects = async (req, res) => {
     return res.status(500).json([error.message]);
   }
 };
+
+export const getAllProyects = async (req, res) => {
+  try {
+    const [result] = await pool.query(
+      "SELECT proyects.* , user_base.username AS author FROM proyects JOIN user_base ON user_base.user_id = proyects.jac_id"
+    );
+    return res.send(result);
+  } catch (error) {
+    return res.status(500).json([error.message]);
+  }
+};
+
+export const getOneProyect = async (req, res) => {
+  try {
+    const [result] = await pool.query(
+      "SELECT proyects.* , user_base.username AS author FROM proyects JOIN user_base ON user_base.user_id = proyects.jac_id WHERE proyects.proyect_id = ? ",[req.params.id]
+    );
+    if (!result[0]) return res.status(400).json(["Proyect not found"]);
+    return res.send(result[0]);
+  } catch (error) {
+    return res.status(500).json([error.message]);
+  }
+};
 export const getProyect = async (req, res) => {
   const { state, proyect_id } = req.body;
   try {
@@ -107,6 +131,7 @@ export const deleteProyect = async (req, res) => {
       "DELETE FROM proyects WHERE proyect_id = ?",
       [req.params.id]
     );
+
     return res.sendStatus(204);
   } catch (error) {
     return res.status(500).json([error.message]);

@@ -22,7 +22,6 @@ export const authRequired = (req, res, next) => {
 export const authUserJac = (req, res,next) =>{
   console.log("validing User Jac")
   const { id, type_user } = req.user;
- 
     if (type_user !== TYPE_JAC)
       return res.status(400).json(["You don't have permissions"]);
 

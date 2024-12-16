@@ -206,3 +206,12 @@ export const deleteUser = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+export const getJacs = async (req, res)=>{
+  try {
+    const [result] = await pool.query ("SELECT jacs.* , user_base.email, user_base.username, user_base.user_type, user_base.telephone FROM jacs JOIN user_base ON jacs.user_id = user_base.user_id")
+    return res.send(result);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+}

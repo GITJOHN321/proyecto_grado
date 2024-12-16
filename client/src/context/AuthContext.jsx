@@ -1,5 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { registerRequest, registerJacRequest, loginRequest, verifyTokenRequest } from "../api/auth";
+import {
+  registerRequest,
+  registerJacRequest,
+  loginRequest,
+  verifyTokenRequest,
+  getRoles,
+  getRolesUser,
+  asingRolUser,
+  deleteRolUser,
+  getJacs
+} from "../api/auth";
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
@@ -14,6 +24,7 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [reload, setReload] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,10 +40,10 @@ export const AuthProvider = ({ children }) => {
       //setUser(res.data);
       //setIsAuthenticated(true);
     } catch (error) {
-   
       setErrors(error.response.data);
     }
   };
+
   const signupJac = async (user) => {
     try {
       const res = await registerJacRequest(user);
@@ -41,7 +52,6 @@ export const AuthProvider = ({ children }) => {
       //setUser(res.data);
       //setIsAuthenticated(true);
     } catch (error) {
-   
       setErrors(error.response.data);
     }
   };
@@ -57,14 +67,56 @@ export const AuthProvider = ({ children }) => {
     }
   };
   const logout = () => {
-    Cookies.remove("token", { path: '/'});
+    Cookies.remove("token", { path: "/" });
     setIsAuthenticated(false);
     setUser(null);
+  };
+
+  const addRolUser = async (user) =>{
+    try {
+      const res = await asingRolUser(user);
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  }
+
+  const getListRoles = async () => {
+    try {
+      const res = await getRoles();
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
+  const getListRolesUser = async (id) => {
+    try {
+      const res = await getRolesUser(id);
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
+  const removeRolUser = async (id) => {
+    try {
+      const res = await deleteRolUser(id);
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
+  const getListJacs = async () => {
+    try {
+      const res = await getJacs();
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
   };
   useEffect(() => {
     async function checkLogin() {
       const cookies = Cookies.get();
-      
+
       if (!cookies.token) {
         setIsAuthenticated(false);
         setLoading(false);
@@ -95,7 +147,24 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signup,signupJac,signin, logout, user, loading,  isAuthenticated, errors, resetErrors }}
+      value={{
+        signup,
+        signupJac,
+        signin,
+        logout,
+        user,
+        loading,
+        isAuthenticated,
+        errors,
+        resetErrors,
+        getListRoles,
+        getListRolesUser,
+        getListJacs,
+        addRolUser,
+        reload, 
+        setReload,
+        removeRolUser
+      }}
     >
       {children}
     </AuthContext.Provider>

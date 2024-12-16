@@ -10,12 +10,7 @@ function RegisterPage() {
     formState: { errors },
   } = useForm();
 
-  const {
-    signup,
-    signupJac,
-    errors: RegisterErrors,
-    resetErrors,
-  } = useAuth();
+  const { signup, signupJac, errors: RegisterErrors, resetErrors } = useAuth();
   const [activeForm, setActiveForm] = useState(false);
   const navigation = useNavigate();
 
@@ -41,72 +36,69 @@ function RegisterPage() {
   });
 
   return (
-    <div className="container-form">
-      <div className="container-into-form">
-        <h1 className="head ">Registrate </h1>
+    <div className="container-form ">
+      <div className="container-into-form min-w-96 max-w-xl ">
+        <h1 className="head">Registrate </h1>
         <div className="flex justify-center">
           <button onClick={(e) => changeForm(e)} className="button">
             {!activeForm ? "Registrarse como JAC" : "Registrarse como Usuario"}
           </button>
         </div>
+        <div className="px-5">
+          {RegisterErrors.map((error, i) => (
+            <div className="bg-red-500 p-2 text-white" key={i}>
+              {error}
+            </div>
+          ))}
+          {!activeForm ? (
+            <form className="" onSubmit={onSubmit}>
+              {LIST_REGISTER_USER.map((field) => (
+                <div key={field.name}>
+                  <input
+                    type={field.type}
+                    {...register(field.name, { required: true })}
+                    className="inputFull"
+                    placeholder={field.name}
+                  />
+                  {Object.keys(errors).find((key) => key === field.name) && (
+                    <span className="text-red-500">
+                      {" "}
+                      {field.name} is required{" "}
+                    </span>
+                  )}
+                </div>
+              ))}
 
-        {!activeForm ? (
-          <form className="px-10" onSubmit={onSubmit}>
-            {RegisterErrors.map((error, i) => (
-              <div className="bg-red-500 p-2 text-white" key={i}>
-                {error}
-              </div>
-            ))}
-            {LIST_REGISTER_USER.map((field) => (
-              <span key={field.name}>
-                <input
-                  type={field.type}
-                  {...register(field.name, { required: true })}
-                  className="inputFull"
-                  placeholder={field.name}
-                />
-                {Object.keys(errors).find((key) => key === field.name) && (
-                  <span className="text-red-500">
-                    {" "}
-                    {field.name} is required{" "}
-                  </span>
-                )}
-              </span>
-            ))}
+              <button type="submit" className="button">
+                Register
+              </button>
+            </form>
+          ) : (
+            <form className="" onSubmit={onSubmit}>
+              {LIST_REGISTER_JAC.map((field) => (
+                <div key={field.name}>
+                  <input
+                    type={field.type}
+                    {...register(field.name, { required: true })}
+                    className="inputFull"
+                    placeholder={field.name}
+                  />
+                  {Object.keys(errors).find((key) => key === field.name) && (
+                    <span className="text-red-500">
+                      {" "}
+                      {field.name} is required{" "}
+                    </span>
+                  )}
+                </div>
+              ))}
 
-            <button type="submit" className="button block">
-              Register
-            </button>
-          </form>
-        ) : (
-          <form className="px-10" onSubmit={onSubmit}>
-            {RegisterErrors.map((error, i) => (
-              <div className="bg-red-500 p-2 text-white" key={i}>
-                {error}
-              </div>
-            ))}
-            {LIST_REGISTER_JAC.map((field) => (
-              <span key={field.name}>
-                <input
-                  type={field.type}
-                  {...register(field.name, { required: true })}
-                  className="inputFull"
-                  placeholder={field.name}
-                />
-                {Object.keys(errors).find((key) => key === field.name) && (
-                  <span className="text-red-500">
-                    {" "}
-                    {field.name} is required{" "}
-                  </span>
-                )}
-              </span>
-            ))}
+              <button type="submit" className="button">
+                Register
+              </button>
+            </form>
+          )}
+        </div>
 
-            <button type="submit" className="button block">
-              Register
-            </button>
-          </form>
-        )}
         <br />
         <p className="flex gap-x-2 justify-between px-10">
           Already have an account?{" "}
