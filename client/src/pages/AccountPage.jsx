@@ -2,6 +2,7 @@ import { useAuth } from "../context/AuthContext";
 import { useForm } from "react-hook-form";
 import { LIST_PERFIL_JAC } from "../config/config";
 import NavbarOptions from "../components/navbarOptions";
+import { SETTINGS_JACS } from "../config/config";
 
 function AccountPage() {
   const { user } = useAuth();
@@ -31,7 +32,7 @@ function AccountPage() {
   });
   return (
     <div className="px-20">
-      <NavbarOptions></NavbarOptions>
+       <NavbarOptions buttons={SETTINGS_JACS}></NavbarOptions>
       <div className="container-form">
         <div className="container-into-form">
           <h1 className="head ">Actualizar Datos </h1>

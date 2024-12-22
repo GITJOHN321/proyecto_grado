@@ -104,5 +104,8 @@ li{
     .subtitle{
         @apply text-sm font-thin
     }
+    .button-comment{
+        @apply flex justify-center p-2 bg-slate-100 hover:bg-slate-200 border-2
+    }
 
 }

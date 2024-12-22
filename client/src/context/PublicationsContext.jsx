@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { publicationRequest } from "../api/publication";
+import { publicationRequest, getPublicationsJac, getPublicationJac, getCommentsUser, postComments } from "../api/publication";
 import { proyectRequest, onlyProyectRequest } from "../api/proyect.js";
 
 export const PubliContext = createContext();
@@ -13,9 +13,10 @@ export const usePublication = () => {
 };
 
 export const PubliProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  
   const [reload, setReload] = useState(false);
   const [errors, setErrors] = useState([]);
+ 
  
   
   const getPublicPublications = async () => {
@@ -26,10 +27,44 @@ export const PubliProvider = ({ children }) => {
       setErrors(error.response.data);
     }
   };
+
+  const getJacPublications = async (id) => {
+    try {
+      const res = await getPublicationsJac(id);
+      console.log(res.data)
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
+  const getPublication = async (id) => {
+    try {
+      const res = await getPublicationJac(id);
+      console.log(res.data)
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
+  const getComments = async (id) => {
+    try {
+      const res = await getCommentsUser(id);
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
+  const sendComments = async(user)=>{
+    try {
+      const res = await postComments(user)
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  }
   const getAllProyects = async () => {
     try {
       const res = await proyectRequest();
- 
+      
       return res.data;
     } catch (error) {
       setErrors(error.response.data);
@@ -46,7 +81,7 @@ export const PubliProvider = ({ children }) => {
   }
 
   return (
-    <PubliContext.Provider value={{ getPublicPublications, getAllProyects, getProyect, errors }}>
+    <PubliContext.Provider value={{ getPublicPublications, getAllProyects, getProyect, errors, getJacPublications,  getComments, getPublication, sendComments}}>
       {children}
     </PubliContext.Provider>
   );

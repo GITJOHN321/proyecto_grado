@@ -4,8 +4,8 @@ import { createComment, getComments, getComment, updateComment, deleteComment } 
 const router = Router();
 
 router.post("/comments", authRequired, createComment);
-router.get("/comments", getComments);
-router.get("/comments/:id", authRequired, getComment);
+router.get("/comments/:id", getComments);
+router.get("/comment/:id", authRequired, getComment);
 router.put("/comments/:id", authRequired, updateComment);
 router.delete("/comments/:id", authRequired, deleteComment);
 export default router;

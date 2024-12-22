@@ -8,7 +8,8 @@ import {
   getRolesUser,
   asingRolUser,
   deleteRolUser,
-  getJacs
+  getJacs,
+  getJac
 } from "../api/auth";
 import Cookies from "js-cookie";
 
@@ -113,6 +114,14 @@ export const AuthProvider = ({ children }) => {
       setErrors(error.response.data);
     }
   };
+  const getDetailJac = async (id) => {
+    try {
+      const res = await getJac(id);
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
   useEffect(() => {
     async function checkLogin() {
       const cookies = Cookies.get();
@@ -160,6 +169,7 @@ export const AuthProvider = ({ children }) => {
         getListRoles,
         getListRolesUser,
         getListJacs,
+        getDetailJac,
         addRolUser,
         reload, 
         setReload,

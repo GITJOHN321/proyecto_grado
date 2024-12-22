@@ -67,3 +67,8 @@ export const SETTINGS_JACS = [
   { text: "cuenta", rute: "/settings/cuenta" },
   { text: "integrantes", rute: "/settings/integrantes" },
 ];
+
+export const PERFIL_JAC = [
+  {text: "Perfil", rute: "#"},
+  {text: "Proyectos", rute: "#proyectos"},
+]

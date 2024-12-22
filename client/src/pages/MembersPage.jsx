@@ -3,6 +3,7 @@ import FormMember from "../components/FormMember.jsx";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import NavbarOptions from "../components/navbarOptions.jsx";
+import { SETTINGS_JACS } from "../config/config.js";
 
 function MembersPage() {
   const { user, getListRoles, getListRolesUser, reload, removeRolUser, resetErrors } =
@@ -36,7 +37,7 @@ function MembersPage() {
 
   return (
     <div className="px-20">
-      <NavbarOptions></NavbarOptions>
+      <NavbarOptions buttons={SETTINGS_JACS}></NavbarOptions>
       <section className="container-form" id="cuenta">
         <div className="container-into-form">
           <h1 className="head ">Miembros JAC </h1>

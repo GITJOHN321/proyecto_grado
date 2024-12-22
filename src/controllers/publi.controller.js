@@ -27,6 +27,27 @@ export const getPublicPublications = async (req, res) => {
   }
 };
 
+export const getPublicationsJac = async (req, res) => {
+  try {
+    const [result] = await pool.query(
+      "SELECT publications.*, user_base.username AS author FROM publications RIGHT JOIN jacs ON publications.jac_id = jacs.user_id JOIN user_base ON jacs.user_id = user_base.user_id WHERE publications.public = TRUE AND user_base.user_id = ? ORDER BY publications.created_at DESC",[req.params.id]
+    );
+    res.json(result);
+  } catch (error) {
+    return res.status(500).json([error.message]);
+  }
+};
+
+export const getPublication = async(req, res) =>{
+  try {
+    const [result] = await pool.query ( "SELECT publications.*, user_base.username AS author FROM publications RIGHT JOIN jacs ON publications.jac_id = jacs.user_id JOIN user_base ON jacs.user_id = user_base.user_id WHERE publications.publication_id = ?",[req.params.id])
+    if (!result[0]) return res.status(400).json(["Publication not found"]);
+    return res.send(result[0]);
+  } catch (error) {
+    return res.status(500).json([error.message]);
+  }
+}
+
 export const getPrivatePublications = async (req, res) => {
   const { id } = req.user;
   try {
@@ -37,7 +58,7 @@ export const getPrivatePublications = async (req, res) => {
 
     if (!jac[0]) return res.status(400).json(["Don't have Roles"]);
     const [result] = await pool.query(
-      "SELECT publications.*, user_base.username AS author FROM publications RIGHT JOIN jacs ON publications.jac_id = jacs.user_id JOIN user_base ON jacs.user_id = user_base.user_id WHERE publications.public = FALSE AND jacs.user_id = ?;",[jac[0].jac_id]
+      "SELECT publications.*, user_base.username AS author FROM publications RIGHT JOIN jacs ON publications.jac_id = jacs.user_id JOIN user_base ON jacs.user_id = user_base.user_id WHERE publications.public = FALSE AND jacs.user_id = ?",[jac[0].jac_id]
     );
 
     res.json(result);

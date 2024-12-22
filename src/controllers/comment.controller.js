@@ -16,16 +16,15 @@ export const createComment = async (req, res) => {
 };
 
 export const getComments = async (req, res) => {
-  const { publication_id } = req.body;
+ 
   try {
     const [result] = await pool.query(
-      "SELECT comments.*, user_base.username AS author FROM comments RIGHT JOIN user_base ON comments.user_id = user_base.user_id WHERE comments.publication_id = ? AND comments.status = TRUE",
-      [publication_id]
+      "SELECT comments.*, user_base.username AS author FROM comments JOIN user_base ON comments.user_id = user_base.user_id WHERE comments.status = TRUE AND comments.publication_id = ?",
+      [req.params.id]
     );
 
     return res.send(result);
   } catch (error) {
-    z;
     return res.status(500).json([error.message]);
   }
 };

@@ -7,7 +7,8 @@ import {
   verifyToken,
   deleteUser,
   register_jac,
-  getJacs
+  getJacs,
+  getJac
 } from "../controllers/auth.controller.js";
 import { authRequired } from "../middlewares/validateToken.js";
 import { validateSchema } from "../middlewares/validator.schema.js";
@@ -30,5 +31,6 @@ router.post(
 );
 router.get("/verify", verifyToken);
 router.get("/jacs", getJacs);
+router.get("/jacs/:id", getJac);
 router.delete("/user", authRequired, deleteUser);
 export default router;

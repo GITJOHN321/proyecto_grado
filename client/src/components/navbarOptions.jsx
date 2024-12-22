@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { SETTINGS_JACS } from "../config/config";
-function NavbarOptions() {
-  const buttons = SETTINGS_JACS;
+function NavbarOptions(field) {
+  const buttons = field.buttons
   const [activeIndex, setActiveIndex] = useState(null);
   const location = useLocation();
 

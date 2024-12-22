@@ -5,8 +5,10 @@ import {
   getPublicPublications,
   getPrivatePublications,
   getMyPublications,
+  getPublicationsJac,
   updatePublications,
   deletePublications,
+  getPublication
 } from "../controllers/publi.controller.js";
 import { validateSchema } from "../middlewares/validator.schema.js";
 import { publicationSchema } from "../schemas/publi.schema.js";
@@ -20,6 +22,9 @@ router.post(
   addPublication
 );
 router.get("/publication", getPublicPublications);
+
+router.get("/publication/:id", getPublication);
+router.get("/publications/:id", getPublicationsJac);
 router.get("/publication-pv", authRequired, getPrivatePublications);
 router.get("/publication-my", authRequired, authUserJac, getMyPublications);
 router.put(

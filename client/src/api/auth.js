@@ -7,6 +7,7 @@ export const verifyTokenRequest = () => axios.get("/verify");
 
 export const getRoles = () => axios.get(`/rol`);
 export const getJacs = () => axios.get(`/jacs`);
+export const getJac = (id) => axios.get(`/jacs/${id}`);
 export const getRolesUser = (id) => axios.get(`/rol/${id}`);
 export const asingRolUser = (user) => axios.post('/rol-user', user)
 export const deleteRolUser = (user) => axios.put('/rol-user', user)
