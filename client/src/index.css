@@ -107,5 +107,8 @@ li{
     .button-comment{
         @apply flex justify-center p-2 bg-slate-100 hover:bg-slate-200 border-2
     }
+    .child-grid{
+        @apply break-words bg-white p-2 rounded-md bg-white border-2 shadow-lg
+    }
 
 }

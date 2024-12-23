@@ -4,18 +4,38 @@ import { usePublication } from "../context/PublicationsContext.jsx";
 import { useState, useEffect } from "react";
 import PublicationCard from "../components/PublicationCard.jsx";
 import PerfilJac from "../components/PerfilJac.jsx";
-import FloatPubliCard from "../components/FloatPubliCard.jsx";
-import { PERFIL_JAC } from "../config/config";
+import FormPublication from "../components/FormPublication.jsx";
+import FormReunion from "../components/FormReunion.jsx";
 
 function JacDetailPage() {
-  const { getDetailJac } = useAuth();
-  const { getJacPublications, openPubli, publi } = usePublication();
+  const { getDetailJac, user, isAuthenticated } = useAuth();
+  const {
+    getJacPublications,
+    openFormPublication,
+    setOpenFormPublication,
+    openFormReunion,
+    setOpenFormReunion,
+  } = usePublication();
   const [jac, setJac] = useState([]);
   const [publications, setPublications] = useState([]);
   const { id } = useParams();
-  PERFIL_JAC[0].rute = `/jacs/${id}`;
 
+  const toggleModal = () => {
+    setOpenFormPublication(!openFormPublication);
+  };
+  const toggleModalReunion = () => {
+    setOpenFormReunion(!openFormReunion);
+  };
 
+  function permissions() {
+    if (isAuthenticated) {
+      if (user.user_id == id) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
 
   useEffect(() => {
     async function loadJac() {
@@ -29,25 +49,42 @@ function JacDetailPage() {
   }, []);
   return (
     <div>
-      <div className="grid grid-flow-row-dense grid-cols-3 grid-row-3 lg:px-52 bg-slate-50">
+      {openFormPublication && <FormPublication></FormPublication>}
+      {openFormReunion && <FormReunion></FormReunion>}
+      <div className="grid grid-flow-row-dense grid-cols-1 lg:grid-cols-3 grid-row-3 px-32 xl:px-52 bg-slate-100">
         <div className="col-span-2">
           <PerfilJac jac={jac}></PerfilJac>
         </div>
         <div className="col-span-2">
           <div className="">
-            <h1 className="head">Publicaciones</h1>
-            <div>
-              {publications.map((publication,i) => (
+            <h1 className="head flex justify-between">
+              Publicaciones{" "}
+              {permissions() && (
+                <Link onClick={() => toggleModal()} className="link">
+                  Crear +
+                </Link>
+              )}
+            </h1>
+            <div className="h-screen overflow-auto py-2">
+              {publications.map((publication, i) => (
                 <div key={i}>
-                  <PublicationCard  publication ={publication}></PublicationCard>
+                  <PublicationCard publication={publication}></PublicationCard>
                 </div>
               ))}
             </div>
           </div>
         </div>
-        <div className="row-span-2">
-          <div>REUNIONES</div>
-          <div id="proyectos">dasfasdfdasf</div>
+        <div className=" bg-white w-full m-2">
+          <div className="">
+            <h1 className="head flex justify-between">
+              Reuniones{" "}
+              {permissions() && (
+                <Link onClick={() => toggleModalReunion()} className="link">
+                  Crear+
+                </Link>
+              )}
+            </h1>
+          </div>
         </div>
       </div>
     </div>

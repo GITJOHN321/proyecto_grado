@@ -16,6 +16,8 @@ export const PubliProvider = ({ children }) => {
   
   const [reload, setReload] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [openFormPublication, setOpenFormPublication] = useState(false);
+  const [openFormReunion, setOpenFormReunion] = useState(false);
  
  
   
@@ -81,7 +83,7 @@ export const PubliProvider = ({ children }) => {
   }
 
   return (
-    <PubliContext.Provider value={{ getPublicPublications, getAllProyects, getProyect, errors, getJacPublications,  getComments, getPublication, sendComments}}>
+    <PubliContext.Provider value={{ getPublicPublications, getAllProyects, getProyect, errors, getJacPublications,  getComments, getPublication, sendComments, openFormPublication, setOpenFormPublication, openFormReunion, setOpenFormReunion}}>
       {children}
     </PubliContext.Provider>
   );

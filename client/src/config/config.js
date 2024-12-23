@@ -68,7 +68,7 @@ export const SETTINGS_JACS = [
   { text: "integrantes", rute: "/settings/integrantes" },
 ];
 
-export const PERFIL_JAC = [
-  {text: "Perfil", rute: "#"},
+export const FIELDS_PROYECT = [
+  {text: "Proyecto", rute: "#"},
   {text: "Proyectos", rute: "#proyectos"},
 ]
