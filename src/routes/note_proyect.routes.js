@@ -11,8 +11,8 @@ import {
 const router = Router();
 
 router.post("/notes", authRequired, authUserJac, createNoteProyect);
-router.get("/notes", getNotesProyect);
-router.get("/notes/:id", getNoteProyect);
+router.get("/notes/:id", getNotesProyect);
+router.get("/note/:id", getNoteProyect);
 router.put("/notes/:id", authRequired, authUserJac, updateNoteProyect);
 router.delete("/notes/:id", authRequired, authUserJac, deleteNoteProyect);
 export default router;

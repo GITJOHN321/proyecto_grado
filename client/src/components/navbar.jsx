@@ -12,7 +12,8 @@ function Navbar() {
     evt.preventDefault();
     setIsOpen((prev) => !prev);
   };
-  useEffect(() => {
+
+  const clicker = () => {
     if (isAuthenticated) {
       let handler = (e) => {
         if (!menuRef.current.contains(e.target)) {
@@ -27,8 +28,9 @@ function Navbar() {
         document.removeEventListener("mousedown", handler);
       };
     }
-  }, []);
-
+  };
+  clicker();
+ 
   return (
     <nav className="nav px-50 pb-5 pt-1 ">
       {isAuthenticated && (
@@ -50,9 +52,15 @@ function Navbar() {
           </Link>
         </li>
         <li className="flex justify-center">
-          <Link className="px-2" to="/">INICIO</Link>
-          <Link className="px-2" to="/Proyects">PROYECTOS</Link>
-          <Link className="px-2" to="/jacs">JACS</Link>
+          <Link className="px-2" to="/">
+            INICIO
+          </Link>
+          <Link className="px-2" to="/Proyects">
+            PROYECTOS
+          </Link>
+          <Link className="px-2" to="/jacs">
+            JACS
+          </Link>
         </li>
         <li className="flex justify-center">
           {isAuthenticated ? (

@@ -86,6 +86,7 @@ CREATE TABLE notes_proyects(
     proyect_id INTEGER NOT NULL, 
     title VARCHAR(100) NOT NULL, 
     description TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (proyect_id) REFERENCES proyects(proyect_id) ON DELETE CASCADE
 );
 

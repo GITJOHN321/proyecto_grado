@@ -48,7 +48,6 @@ export const AuthProvider = ({ children }) => {
   const signupJac = async (user) => {
     try {
       const res = await registerJacRequest(user);
-      console.log(res.data);
       return res.data;
       //setUser(res.data);
       //setIsAuthenticated(true);

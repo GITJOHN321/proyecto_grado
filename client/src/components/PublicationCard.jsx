@@ -1,31 +1,29 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { usePublication } from "../context/PublicationsContext";
+import formatFecha from "../config/convertdate";
 
 function PublicationCard(field) {
-  const { publication } = field;
+  const { publication, permission, index } = field;
   const [vermas, setVermas] = useState(false);
+  const {
+    openFormPublication,
+    setOpenFormPublication,
+    publications,
+    setPublications,
+  } = usePublication();
 
+  publication.date = formatFecha(publication.created_at)
+  
+  const toggleModal = () => {
+    setOpenFormPublication(!openFormPublication);
+  };
 
-  function formatFecha(isoDate) {
-    const fecha = new Date(isoDate);
-
-    // Opciones para la fecha
-    const opcionesFecha = { day: "numeric", month: "long" };
-    const fechaFormateada = new Intl.DateTimeFormat(
-      "es-ES",
-      opcionesFecha
-    ).format(fecha);
-
-    // Opciones para la hora
-    const opcionesHora = { hour: "numeric", minute: "numeric", hour12: true };
-    const horaFormateada = new Intl.DateTimeFormat(
-      "es-ES",
-      opcionesHora
-    ).format(fecha);
-
-    // Concatenamos el formato deseado
-    return `${fechaFormateada} a las ${horaFormateada}`;
-  }
+  const removeFields = (index) => {
+    let data = [...publications];
+    data.splice(index, 1);
+    setPublications(data);
+  };
 
   function openParagraph(e) {
     e.preventDefault();
@@ -36,11 +34,31 @@ function PublicationCard(field) {
   return (
     <div className="w-full bg-white rounded-md border-2 my-4">
       <header className="px-4 py-2 border-b-2 ">
-        <div className="overflow-hidden">
-        <h1 className="font-semibold text-wrap">{publication.title} - {publication.author}</h1>
-        <p className="subtitle text-nowrap">{formatFecha(publication.created_at)}</p>
+        <div className="flex justify-between">
+          <div>
+            <h1 className="font-semibold text-wrap break-words">
+              {publication.title} - {publication.author}
+            </h1>
+            <p className="subtitle text-nowrap">
+              {publication.date}
+            </p>
+          </div>
+          {permission && (
+            <div>
+              <Link onClick={() => toggleModal()} className="link">
+                Editar
+              </Link>
+              <Link
+                onClick={() => {
+                  removeFields(index);
+                }}
+                className="link"
+              >
+                Eliminar
+              </Link>
+            </div>
+          )}
         </div>
-   
       </header>
       <div className={`${vermas ? "" : "overflow-hidden max-h-28"}`}>
         <p className={`font-light  p-4 text-gray-800 `}>
@@ -56,11 +74,13 @@ function PublicationCard(field) {
           de Lorem Ipsum, y más recientemente con software de autoedición, como
           por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.{" "}
         </p>
-        <img
-          className="w-full h-full object-cover"
-          src="https://tulua.gov.co/info/tulua_se/media/galeria7239.jpg"
-          alt=""
-        />
+        <div className="flex justify-center">
+          <img
+            className="h-96 object-cover"
+            src="https://tulua.gov.co/info/tulua_se/media/galeria7239.jpg"
+            alt=""
+          />
+        </div>
       </div>
       <Link
         className="flex justify-end link px-4"
@@ -72,10 +92,14 @@ function PublicationCard(field) {
       </Link>
       <div className="grid grid-cols-3">
         <Link className="button-comment">Me gusta</Link>
-        <Link className="button-comment" to={`/jacs/${publication.jac_id}/${publication.publication_id}`}>Comentar</Link>
+        <Link
+          className="button-comment"
+          to={`/jacs/${publication.jac_id}/${publication.publication_id}`}
+        >
+          Comentar
+        </Link>
         <Link className="button-comment">URL</Link>
       </div>
-      
     </div>
   );
 }

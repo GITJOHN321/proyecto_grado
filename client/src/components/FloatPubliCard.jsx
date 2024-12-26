@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { usePublication } from "../context/PublicationsContext";
 import { useAuth } from "../context/AuthContext";
+import formatFecha from "../config/convertdate";
 function FloatPubliCard() {
   const { isAuthenticated } = useAuth();
   const [publication, setPublication] = useState([]);
@@ -29,26 +30,7 @@ function FloatPubliCard() {
     }
   });
 
-  function formatFecha(isoDate) {
-    const fecha = new Date(isoDate);
-
-    // Opciones para la fecha
-    const opcionesFecha = { day: "numeric", month: "long" };
-    const fechaFormateada = new Intl.DateTimeFormat(
-      "es-ES",
-      opcionesFecha
-    ).format(fecha);
-
-    // Opciones para la hora
-    const opcionesHora = { hour: "numeric", minute: "numeric", hour12: true };
-    const horaFormateada = new Intl.DateTimeFormat(
-      "es-ES",
-      opcionesHora
-    ).format(fecha);
-
-    // Concatenamos el formato deseado
-    return `${fechaFormateada} a las ${horaFormateada}`;
-  }
+ 
 
   useEffect(() => {
     async function loadJac() {

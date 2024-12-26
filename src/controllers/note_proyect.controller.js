@@ -15,11 +15,11 @@ export const createNoteProyect = async (req, res) => {
   }
 };
 export const getNotesProyect = async (req, res) => {
-  const { proyect_id } = req.body;
+ 
   try {
     const [result] = await pool.query(
       "SELECT * FROM notes_proyects WHERE proyect_id = ?",
-      [proyect_id]
+      [req.params.id]
     );
 
     return res.send(result);

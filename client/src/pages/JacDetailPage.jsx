@@ -15,9 +15,10 @@ function JacDetailPage() {
     setOpenFormPublication,
     openFormReunion,
     setOpenFormReunion,
+    setPublications, 
+    publications
   } = usePublication();
   const [jac, setJac] = useState([]);
-  const [publications, setPublications] = useState([]);
   const { id } = useParams();
 
   const toggleModal = () => {
@@ -47,11 +48,11 @@ function JacDetailPage() {
 
     loadJac();
   }, []);
-  return (
+  return ( 
     <div>
       {openFormPublication && <FormPublication></FormPublication>}
       {openFormReunion && <FormReunion></FormReunion>}
-      <div className="grid grid-flow-row-dense grid-cols-1 lg:grid-cols-3 grid-row-3 px-32 xl:px-52 bg-slate-100">
+      <div className="grid grid-flow-row-dense grid-cols-1 lg:grid-cols-3 grid-row-3 px-5 sm:px-24 md:px-32 xl:px-52 bg-slate-100">
         <div className="col-span-2">
           <PerfilJac jac={jac}></PerfilJac>
         </div>
@@ -65,10 +66,10 @@ function JacDetailPage() {
                 </Link>
               )}
             </h1>
-            <div className="h-screen overflow-auto py-2">
+            <div className="max:h-screen overflow-auto py-2">
               {publications.map((publication, i) => (
                 <div key={i}>
-                  <PublicationCard publication={publication}></PublicationCard>
+                  <PublicationCard permission={permissions()} publication={publication} index={i}></PublicationCard>
                 </div>
               ))}
             </div>
