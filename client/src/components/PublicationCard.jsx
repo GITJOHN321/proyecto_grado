@@ -11,15 +11,19 @@ function PublicationCard(field) {
     setOpenFormPublication,
     publications,
     setPublications,
+    setPublication,
+    killPublication,
   } = usePublication();
 
-  publication.date = formatFecha(publication.created_at)
-  
+  publication.date = formatFecha(publication.created_at);
+
   const toggleModal = () => {
+    setPublication(publication);
     setOpenFormPublication(!openFormPublication);
   };
 
-  const removeFields = (index) => {
+  const removeFields = async(index) => {
+    await killPublication(publication.publication_id)
     let data = [...publications];
     data.splice(index, 1);
     setPublications(data);
@@ -39,9 +43,7 @@ function PublicationCard(field) {
             <h1 className="font-semibold text-wrap break-words">
               {publication.title} - {publication.author}
             </h1>
-            <p className="subtitle text-nowrap">
-              {publication.date}
-            </p>
+            <p className="subtitle text-nowrap">{publication.date}</p>
           </div>
           {permission && (
             <div>

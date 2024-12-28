@@ -6,6 +6,8 @@ import {
   getCommentsUser,
   postComments,
   postPublication,
+  putPublication,
+  deletePublication
 } from "../api/publication";
 import {
   proyectRequest,
@@ -30,6 +32,7 @@ export const PubliProvider = ({ children }) => {
   const [openFormReunion, setOpenFormReunion] = useState(false);
   const [openFormNote, setOpenFormNote] = useState(false);
   const [publications, setPublications] = useState([]);
+  const [publication, setPublication] = useState(null);
   const [notes, setNotes] = useState([]);
 
   const resetErrors = () => {
@@ -58,7 +61,23 @@ export const PubliProvider = ({ children }) => {
   const createPublication = async (user) => {
     try {
       const res = await postPublication(user);
-      return res.data
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
+  const killPublication = async (id) => {
+    try {
+      const res = await deletePublication(id);
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
+  const updatePublication = async (user) => {
+    try {
+      const res = await putPublication(user);
+      return res.data;
     } catch (error) {
       setErrors(error.response.data);
     }
@@ -139,7 +158,11 @@ export const PubliProvider = ({ children }) => {
         openFormNote,
         setOpenFormNote,
         createPublication,
-        resetErrors
+        resetErrors,
+        publication,
+        setPublication,
+        updatePublication,
+        killPublication
       }}
     >
       {children}

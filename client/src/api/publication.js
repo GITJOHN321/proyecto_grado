@@ -8,3 +8,6 @@ export const getCommentsUser = (id) => axios.get(`/comments/${id}`);
 export const postComments = (user) => axios.post(`/comments`, user)
 
 export const postPublication = (user) => axios.post(`/publication`, user)
+export const putPublication = (user) => axios.put(`/publication/${user.id}`, user)
+
+export const deletePublication = (id) => axios.delete(`/publication/${id}`)

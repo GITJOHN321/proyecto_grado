@@ -83,9 +83,10 @@ export const updatePublications = async (req, res) =>{
   const {title, content, public_} = req.body
   try {
     const [result] = await pool.query(
-      "UPDATE publications SET title = ?, content = ?, public = ? WHERE publications_id = ?",
+      "UPDATE publications SET title = ?, content = ?, public = ? WHERE publication_id = ?",
       [title, content, public_, req.params.id]
     );
+    console.log(result)
     res.json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -94,7 +95,7 @@ export const updatePublications = async (req, res) =>{
 
 export const deletePublications = async (req, res) => {
   try {
-    await pool.query("DELETE FROM publications WHERE publications_id= ?",[req.params.id])
+    await pool.query("DELETE FROM publications WHERE publication_id= ?",[req.params.id])
 
     res.sendStatus(204)
   } catch (error) {
