@@ -30,7 +30,7 @@ function Navbar() {
     }
   };
   clicker();
- 
+
   return (
     <nav className="nav px-50 pb-5 pt-1 ">
       {isAuthenticated && (
@@ -75,7 +75,22 @@ function Navbar() {
                 >
                   <DropdownItem
                     favicon={<MdLogout />}
-                    url={"/settings/cuenta"}
+                    url={"#"}
+                    text={"Mi Perfil"}
+                  />
+                  <DropdownItem
+                    favicon={<MdLogout />}
+                    url={"/settings/my-projects"}
+                    text={"Mis Proyectos"}
+                  />
+                  <DropdownItem
+                    favicon={<MdLogout />}
+                    url={"#"}
+                    text={"Mis Publicaciones"}
+                  />
+                  <DropdownItem
+                    favicon={<MdLogout />}
+                    url={user.user_type === "user_jac" ? "/settings/cuenta" : "/"}
                     text={"Settings"}
                   />
                   <DropdownItem

@@ -73,7 +73,19 @@ export const getProyects = async (req, res) => {
 export const getAllProyects = async (req, res) => {
   try {
     const [result] = await pool.query(
-      "SELECT proyects.* , user_base.username AS author FROM proyects JOIN user_base ON user_base.user_id = proyects.jac_id"
+      "SELECT proyects.* , user_base.username AS author, jacs.neighborhood AS neighborhood FROM proyects JOIN user_base ON user_base.user_id = proyects.jac_id JOIN jacs ON user_base.user_id = jacs.user_id;"
+    );
+    return res.send(result);
+  } catch (error) {
+    return res.status(500).json([error.message]);
+  }
+};
+
+export const getMyProyects = async (req, res) => {
+  const {id} = req.user
+  try {
+    const [result] = await pool.query(
+      "SELECT proyects.* , user_base.username AS author, jacs.neighborhood AS neighborhood FROM proyects JOIN user_base ON user_base.user_id = proyects.jac_id JOIN jacs ON user_base.user_id = jacs.user_id WHERE user_base.user_id = ?",[id]
     );
     return res.send(result);
   } catch (error) {

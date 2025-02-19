@@ -69,6 +69,22 @@ export const SETTINGS_JACS = [
 ];
 
 export const FIELDS_PROYECT = [
-  {text: "Proyecto", rute: "#"},
-  {text: "Proyectos", rute: "#proyectos"},
-]
+  { text: "Proyecto", rute: "#" },
+  { text: "Proyectos", rute: "#proyectos" },
+];
+
+export const WORD_LIST = [
+  "React",
+  "Redux",
+  "JavaScript",
+  "Node.js",
+  "Tailwind",
+  "Express",
+  "MongoDB",
+  "TypeScript",
+  "Next.js",
+  "GraphQL",
+  "Ciudad Cordoba",
+  ,
+  "Ciudad Jardin",
+];

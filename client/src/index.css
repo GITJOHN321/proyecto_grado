@@ -99,7 +99,7 @@ li{
         @apply px-5
     }
     .title{
-        @apply text-2xl font-bold
+        @apply text-2xl font-bold break-words
     }
     .subtitle{
         @apply text-sm font-thin

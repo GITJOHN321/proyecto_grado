@@ -7,12 +7,13 @@ import {
   postComments,
   postPublication,
   putPublication,
-  deletePublication
+  deletePublication,
 } from "../api/publication";
 import {
   proyectRequest,
   onlyProyectRequest,
   notesRequest,
+  getProyects,
 } from "../api/proyect.js";
 
 export const PubliContext = createContext();
@@ -125,7 +126,14 @@ export const PubliProvider = ({ children }) => {
       setErrors(error.response.data);
     }
   };
-
+  const getMyProyect = async (id) => {
+    try {
+      const res = await getProyects();
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
   const getNotesProyect = async (id) => {
     try {
       const res = await notesRequest(id);
@@ -162,7 +170,8 @@ export const PubliProvider = ({ children }) => {
         publication,
         setPublication,
         updatePublication,
-        killPublication
+        killPublication,
+        getMyProyect,
       }}
     >
       {children}

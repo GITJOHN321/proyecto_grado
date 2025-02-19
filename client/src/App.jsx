@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import AccountPage from "./pages/AccountPage.jsx";
 import MembersPage from "./pages/MembersPage.jsx";
 import ProyectsPage from "./pages/ProyectsPage.jsx";
+import MyProyectsPage from "./pages/MyProyectsPage.jsx";
 import JacsListPage from "./pages/JacsListPage.jsx";
 import JacDetailPage from "./pages/JacDetailPage.jsx";
 import ProyectDetailPage from "./pages/proyectDetailPage.jsx";
@@ -12,6 +13,7 @@ import FloatPubliCard from "./components/FloatPubliCard.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { PubliProvider } from "./context/PublicationsContext.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
+import PermissionsAccount from "./PermissionsAccount.jsx";
 import Navbar from "./components/navbar.jsx";
 
 function App() {
@@ -30,11 +32,20 @@ function App() {
             <Route path="/jacs/:id" element={<JacDetailPage />}></Route>
             <Route path="/jacs/:id/:p_id" element={<FloatPubliCard />}></Route>
             <Route element={<ProtectedRoute />}>
-              <Route path="/settings/cuenta" element={<AccountPage />}></Route>
-              <Route
-                path="/settings/integrantes"
-                element={<MembersPage />}
-              ></Route>
+              <Route element={<PermissionsAccount />}>
+                <Route
+                  path="/settings/cuenta"
+                  element={<AccountPage />}
+                ></Route>
+                <Route
+                  path="/settings/integrantes"
+                  element={<MembersPage />}
+                ></Route>
+                <Route
+                  path="/settings/my-projects"
+                  element={<MyProyectsPage />}
+                ></Route>
+              </Route>
             </Route>
           </Routes>
         </BrowserRouter>

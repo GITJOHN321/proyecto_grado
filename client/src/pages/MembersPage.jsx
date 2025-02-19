@@ -8,7 +8,6 @@ import { SETTINGS_JACS } from "../config/config.js";
 function MembersPage() {
   const { user, getListRoles, getListRolesUser, reload, removeRolUser, resetErrors } =
     useAuth();
-
   const [rolesUser, setRolesUser] = useState([]);
   const [rolUser, setRolUser] = useState("");
   const [listRoles, setlistRoles] = useState([]);
