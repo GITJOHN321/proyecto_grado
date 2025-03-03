@@ -4,7 +4,7 @@ function ProyectGeneralInfo(f) {
   const { proyect } = f;
 
   return (
-    <div>
+    <div className="px-5">
       <div className="border-b-2 pb-2">
         <h1 className="font-bold text-2xl">{proyect.name_proyect}</h1>
 

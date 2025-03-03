@@ -50,7 +50,7 @@ export const createProyect = async (req, res) => {
 };
 
 export const getProyects = async (req, res) => {
-  const { state, jac_id } = req.body;
+  const { state, jac_id } = req.body; 
   try {
     if (state !== FINISHED_STATE) {
       const [result] = await pool.query(
@@ -126,10 +126,12 @@ export const getProyect = async (req, res) => {
 };
 
 export const updateProyect = async (req, res) => {
+  const {description, initial_budget, location, name_proyect, object, start_date, state, stimated_time } = req.body
+  const newProyect = {description, initial_budget, location, name_proyect, object, start_date, state:"propuesta", stimated_time}
   try {
     const [result] = await pool.query(
       "UPDATE proyects SET ? WHERE proyect_id = ?",
-      [req.body, req.params.id]
+      [newProyect, req.params.id]
     );
     return res.json(result);
   } catch (error) {

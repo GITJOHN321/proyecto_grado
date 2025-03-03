@@ -3,20 +3,21 @@ import { Link } from "react-router-dom";
 import { usePublication } from "../context/PublicationsContext";
 
 function CardNotesProyect(field) {
-  const { notes, setNotes, openFormNote, setOpenFormNote } = usePublication();
+  const { notes, setNotes, openFormNote, setOpenFormNote, setNote,killNoteProyect } = usePublication();
   const [vermas, setVermas] = useState(false);
   const { note, permission, index } = field;
 
   const toggleModal = () => {
+    setNote(note);
     setOpenFormNote(!openFormNote);
   };
-
-  const removeFields = (index) => {
+  const removeFields = async(index) => {
     let data = [...notes];
     data.splice(index, 1);
     setNotes(data);
+    await killNoteProyect(note.note_id)
   };
-
+ 
   function openParagraph(e) {
     e.preventDefault();
     setVermas(!vermas);
@@ -24,7 +25,7 @@ function CardNotesProyect(field) {
   }
   return (
     <div>
-      <div className=" my-4">
+      <div className=" my-4 border-2 border-sky-100 rounded-lg">
         <header className="px-4 py-2 border-b-2 ">
           <div className="flex justify-between">
             <div>

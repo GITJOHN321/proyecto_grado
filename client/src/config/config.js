@@ -68,6 +68,10 @@ export const SETTINGS_JACS = [
   { text: "integrantes", rute: "/settings/integrantes" },
 ];
 
+export const SETTINGS_USERS = [
+  { text: "cuenta", rute: "/settings/cuenta" },
+];
+
 export const FIELDS_PROYECT = [
   { text: "Proyecto", rute: "#" },
   { text: "Proyectos", rute: "#proyectos" },
@@ -76,7 +80,7 @@ export const FIELDS_PROYECT = [
 export const WORD_LIST = [
   "React",
   "Redux",
-  "JavaScript",
+  "JavaScript", 
   "Node.js",
   "Tailwind",
   "Express",

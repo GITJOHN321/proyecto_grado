@@ -16,12 +16,14 @@ function ProyectDetailPage() {
     setNotes,
     openFormNote,
     setOpenFormNote,
+    setNote
   } = usePublication();
   const { user, isAuthenticated } = useAuth();
   const [proyect, setProyect] = useState("");
   const { id } = useParams();
 
   const toggleModal = () => {
+    setNote(null)
     setOpenFormNote(!openFormNote);
   };
 
@@ -32,7 +34,7 @@ function ProyectDetailPage() {
       } else {
         return false;
       }
-    }
+    } 
   }
 
   useEffect(() => {
@@ -52,15 +54,15 @@ function ProyectDetailPage() {
     <div>
       {errors.length != 0 ? (
         <h1>pagina no encontrada</h1>
-      ) : (
+      ) : ( 
         <div>
-          {openFormNote && <FromNote></FromNote>}
+          {openFormNote && <FromNote id={id}></FromNote>}
           <div className="grid grid-flow-row-dense grid-cols-1 pt-5 lg:grid-cols-3 grid-row-2 px-10 sm:px-24 xl:px-52 gap-x-4">
             <div className="lg:col-span-2 child-grid">
               <ProyectGeneralInfo proyect={proyect}></ProyectGeneralInfo>
             </div>
-            <div className="lg:col-span-2 child-grid">
-              <h1 className="flex justify-between px-4 pt-4 font-bold text-2xl">
+            <div className="lg:col-span-2  child-grid">
+              <h1 className="flex justify-between px-4 pt-4 font-bold text-2xl head">
                 Notas del Proyecto
                 {permissions() && (
                   <Link onClick={() => toggleModal()} className="link">
@@ -71,6 +73,7 @@ function ProyectDetailPage() {
               <div className="max:h-screen overflow-auto">
                 {notes.map((note, i) => (
                   <CardNotesProyect
+                    key={i}
                     permission={permissions()}
                     note={note}
                     index={i}

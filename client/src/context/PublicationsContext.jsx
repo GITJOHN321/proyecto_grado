@@ -14,7 +14,18 @@ import {
   onlyProyectRequest,
   notesRequest,
   getProyects,
+  createProyectRequest,
+  updateProyectRequest,
+  deleteProyectRequest,
+  createNoteProyectRequest,
+  updateNoteProyectRequest,
+  deleteNoteProyectRequest,
 } from "../api/proyect.js";
+import {
+  getMeetingsPublicationJac,
+  createMeetJacRequest,
+  updateMeetJacRequest,
+} from "../api/meetings.js";
 
 export const PubliContext = createContext();
 
@@ -31,10 +42,16 @@ export const PubliProvider = ({ children }) => {
   const [errors, setErrors] = useState([]);
   const [openFormPublication, setOpenFormPublication] = useState(false);
   const [openFormReunion, setOpenFormReunion] = useState(false);
+  const [openFormProject, setOpenFormProject] = useState(false);
   const [openFormNote, setOpenFormNote] = useState(false);
   const [publications, setPublications] = useState([]);
   const [publication, setPublication] = useState(null);
+  const [myProjects, setMyProjects] = useState([]);
+  const [meetings, setMeetings] = useState([]);
+  const [proyect, setProyect] = useState(null);
   const [notes, setNotes] = useState([]);
+  const [meet, setMeet] = useState(null);
+  const [note, setNote] = useState(false);
 
   const resetErrors = () => {
     setErrors([]);
@@ -58,10 +75,44 @@ export const PubliProvider = ({ children }) => {
       setErrors(error.response.data);
     }
   };
+  const getMeetingsJac = async (id) => {
+    try {
+      const res = await getMeetingsPublicationJac(id);
+      setMeetings(res.data);
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
 
   const createPublication = async (user) => {
     try {
-      const res = await postPublication(user);
+      const res = await createNoteProyectRequest(user);
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
+  const createMeet = async (user) => {
+    try {
+      const res = await createMeetJacRequest(user);
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
+  const createProyect = async (user) => {
+    try {
+      const res = await createProyectRequest(user);
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
+  const createNoteProyect = async (user) => {
+    try {
+      const res = await createNoteProyectRequest(user);
       return res.data;
     } catch (error) {
       setErrors(error.response.data);
@@ -75,9 +126,49 @@ export const PubliProvider = ({ children }) => {
       setErrors(error.response.data);
     }
   };
+  const killProyect = async (id) => {
+    try {
+      const res = await deleteProyectRequest(id);
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
+  const killNoteProyect = async (id) => {
+    try {
+      const res = await deleteNoteProyectRequest(id);
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
   const updatePublication = async (user) => {
     try {
       const res = await putPublication(user);
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
+  const updateMeet = async (user) => {
+    try {
+      const res = await updateMeetJacRequest(user);
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
+  const updateProyect = async (user) => {
+    try {
+      const res = await updateProyectRequest(user);
+      return res.data;
+    } catch (error) {
+      setErrors(error.response.data);
+    }
+  };
+  const updateNoteProyect = async (user) => {
+    try {
+      const res = await updateNoteProyectRequest(user);
       return res.data;
     } catch (error) {
       setErrors(error.response.data);
@@ -172,6 +263,27 @@ export const PubliProvider = ({ children }) => {
         updatePublication,
         killPublication,
         getMyProyect,
+        myProjects,
+        setMyProjects,
+        openFormProject,
+        setOpenFormProject,
+        proyect,
+        setProyect,
+        note,
+        setNote,
+        meet,
+        setMeet,
+        meetings,
+        setMeetings,
+        getMeetingsJac,
+        createProyect,
+        updateProyect,
+        killProyect,
+        createNoteProyect,
+        updateNoteProyect,
+        killNoteProyect,
+        createMeet,
+        updateMeet,
       }}
     >
       {children}

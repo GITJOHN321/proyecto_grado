@@ -1,13 +1,13 @@
 import { pool } from "../db.js";
 
 export const addPublication = async (req, res) => {
-  const { title, content, public_ } = req.body;
+  const { title, content, public_, type } = req.body;
   const { id } = req.user;
 
   try {
     const [result] = await pool.query(
-      "INSERT INTO publications(jac_id,title, content, public) VALUES (?,?,?,?)",
-      [id, title, content, public_]
+      "INSERT INTO publications(jac_id,title, content, public, type) VALUES (?,?,?,?,?)",
+      [id, title, content, public_, type]
     );
 
     return res.send({id_publication: result.insertId, title, content, public_, jac_id: id, created_at: new Date().toISOString()});
@@ -30,7 +30,7 @@ export const getPublicPublications = async (req, res) => {
 export const getPublicationsJac = async (req, res) => {
   try {
     const [result] = await pool.query(
-      "SELECT publications.*, user_base.username AS author FROM publications RIGHT JOIN jacs ON publications.jac_id = jacs.user_id JOIN user_base ON jacs.user_id = user_base.user_id WHERE publications.public = TRUE AND user_base.user_id = ? ORDER BY publications.created_at DESC",[req.params.id]
+      "SELECT publications.*, user_base.username AS author FROM publications RIGHT JOIN jacs ON publications.jac_id = jacs.user_id JOIN user_base ON jacs.user_id = user_base.user_id WHERE publications.public = TRUE AND user_base.user_id = ? AND publications.type = ? ORDER BY publications.created_at DESC",[req.params.id, "publication"]
     );
     res.json(result);
   } catch (error) {
@@ -86,7 +86,7 @@ export const updatePublications = async (req, res) =>{
       "UPDATE publications SET title = ?, content = ?, public = ? WHERE publication_id = ?",
       [title, content, public_, req.params.id]
     );
-    console.log(result)
+    console.log(result) 
     res.json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });

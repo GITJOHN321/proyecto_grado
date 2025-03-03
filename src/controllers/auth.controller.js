@@ -16,7 +16,7 @@ export const register_jac = async (req, res) => {
     commune,
     neighborhood,
   } = req.body;
-  console.log(commune);
+
   try {
     if (password !== password2)
       return res.status(500).json(["passwords do not match"]);
@@ -224,3 +224,48 @@ export const getJac = async (req, res)=>{
     return res.status(500).json({ message: error.message });
   }
 }
+
+export const updateUser = async (req, res) => {
+  const {
+    email,
+    password,
+    password2,
+    telephone,
+    username,
+    user_last_name,
+  } = req.body;
+
+  try {
+    if (password !== password2)
+      return res.status(500).json(["passwords do not match"]);
+
+    const password_hash = await bcrypt.hash(password, 10);
+
+    await conex.beginTransaction();
+
+    const [user_base] = await conex.query(
+      "UPDATE proyects SET ? WHERE proyect_id = ?",
+      [email, username, password_hash, TYPE_USER, telephone]
+    );
+    const [result] = await conex.query(
+      "INSERT INTO users(user_id, user_last_name, birthdate, dni) VALUES (?,?,?,?)",
+      [user_base.insertId, user_last_name, birthdate, dni]
+    );
+
+    await conex.commit();
+    res.json({
+      id: user_base.insertId,
+      telephone,
+      username,
+      user_last_name,
+      user_type: TYPE_USER,
+      birthdate,
+      dni,
+    });
+  } catch (error) {
+    await conex.rollback();
+    return res.status(500).json([error.message]);
+  } finally {
+    await conex.release();
+  }
+};

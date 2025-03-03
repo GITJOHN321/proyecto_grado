@@ -2,7 +2,7 @@ import { usePublication } from "../context/PublicationsContext";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import currentDate from "../config/currentDate";
+import currentDate from "../config/currentDate"; 
 
 function FormPublication() {
   const {
@@ -31,8 +31,8 @@ function FormPublication() {
       (item) => item.publication_id === publication.publication_id
     );
     publications[index].title = field.title;
-    publications[index].content = field.content;
-  };
+    publications[index].content = field.content; 
+  }; 
   const addField = (field) => {
     let newfield = field;
     setPublications([newfield, ...publications]);
@@ -46,7 +46,7 @@ function FormPublication() {
   const onSubmit = handleSubmit(async (data) => {
     data.public_ = true;
 
-    if (publication) {
+    if (publication) { 
       data.id = publication.publication_id;
       const res = await updatePublication(data);
       updateField(data);
@@ -75,7 +75,7 @@ function FormPublication() {
               </div>
             ))}
 
-            <form className="px-10" onSubmit={onSubmit}>
+            <form className="" onSubmit={onSubmit}>
               <input
                 type="text"
                 {...register("title", { required: true })}

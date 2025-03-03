@@ -1,10 +1,31 @@
 import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { usePublication } from "../context/PublicationsContext";
 
 function CardProyect(field) {
   const { user } = useAuth();
-  console.log(user)
-  const { proyect } = field;
+  const { proyect, index,permission } = field;
+
+  const {
+    myProjects,
+    setMyProjects,
+    openFormProject,
+    setOpenFormProject,
+    setProyect,
+    killProyect,
+  } = usePublication();
+
+  const toggleModal = () => {
+    setProyect(proyect);
+    setOpenFormProject(!openFormProject);
+  };
+
+  const removeFields = async (index) => {
+    let data = [...myProjects];
+    data.splice(index, 1);
+    setMyProjects(data);
+    await killProyect(proyect.proyect_id);
+  };
   return (
     <div className="bg-white border-2 border-slate-200 max-w-2xl w-full px-5 py-5 rounded-md shadow-lg">
       <header className=" pb-2 border-b-2 mx-4">
@@ -22,15 +43,24 @@ function CardProyect(field) {
           </div>
           <div className="inline-flex items-center">
             <div className="grid grid-cols-1">
-            <Link className="link" to={`/proyects/${proyect.proyect_id}`}>
-              Ver Proyecto
-            </Link>
-            <Link className="link" to={`#`}>
-              Eliminar
-            </Link>
-            <Link className="link" to={`#`}>
-              Editar
-            </Link>
+              <Link className="link" to={`/proyects/${proyect.proyect_id}`}>
+                Ver Proyecto
+              </Link>
+              {permission && (
+                <>
+                  <Link
+                    className="link"
+                    onClick={() => {
+                      removeFields(index);
+                    }}
+                  >
+                    Eliminar
+                  </Link>
+                  <Link className="link" onClick={() => toggleModal()}>
+                    Editar
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

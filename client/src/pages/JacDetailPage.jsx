@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext.jsx";
 import { usePublication } from "../context/PublicationsContext.jsx";
 import { useState, useEffect } from "react";
 import PublicationCard from "../components/PublicationCard.jsx";
+import MeetCard from "../components/MeetCard.jsx";
 import PerfilJac from "../components/PerfilJac.jsx";
 import FormPublication from "../components/FormPublication.jsx";
 import FormReunion from "../components/FormReunion.jsx";
@@ -15,8 +16,12 @@ function JacDetailPage() {
     setOpenFormPublication,
     openFormReunion,
     setOpenFormReunion,
-    setPublications, 
-    publications
+    setPublications,
+    publications,
+    meetings,
+    setMeetings,
+    getMeetingsJac,
+    setMeet
   } = usePublication();
   const [jac, setJac] = useState([]);
   const { id } = useParams();
@@ -25,6 +30,7 @@ function JacDetailPage() {
     setOpenFormPublication(!openFormPublication);
   };
   const toggleModalReunion = () => {
+    setMeet(null)
     setOpenFormReunion(!openFormReunion);
   };
 
@@ -42,13 +48,14 @@ function JacDetailPage() {
     async function loadJac() {
       const perfil = await getDetailJac(id);
       const publi = await getJacPublications(id);
+      await getMeetingsJac(id);
       setJac(perfil);
       setPublications(publi);
     }
 
     loadJac();
   }, []);
-  return ( 
+  return (
     <div>
       {openFormPublication && <FormPublication></FormPublication>}
       {openFormReunion && <FormReunion></FormReunion>}
@@ -69,13 +76,17 @@ function JacDetailPage() {
             <div className="max:h-screen overflow-auto py-2">
               {publications.map((publication, i) => (
                 <div key={i}>
-                  <PublicationCard permission={permissions()} publication={publication} index={i}></PublicationCard>
+                  <PublicationCard
+                    permission={permissions()}
+                    publication={publication}
+                    index={i}
+                  ></PublicationCard>
                 </div>
               ))}
             </div>
-          </div>
+          </div> 
         </div>
-        <div className=" bg-white w-full m-2">
+        <div className=" w-full mb-4 mx-2 row-span-2">
           <div className="">
             <h1 className="head flex justify-between">
               Reuniones{" "}
@@ -85,6 +96,17 @@ function JacDetailPage() {
                 </Link>
               )}
             </h1>
+            <div className="overflow-auto p-2">
+              {meetings.map((meet, i) => (
+                <div key={i}>
+                  <MeetCard
+                    permission={permissions()}
+                    meet={meet}
+                    index={i}
+                  ></MeetCard>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

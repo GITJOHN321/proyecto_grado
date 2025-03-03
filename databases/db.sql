@@ -42,6 +42,7 @@ CREATE TABLE publications(
     title VARCHAR(100) NOT NULL,
     content TEXT NOT NULL,
     public BOOLEAN DEFAULT TRUE,
+    type VARCHAR(50) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (jac_id) REFERENCES jacs(user_id) ON DELETE CASCADE
@@ -55,6 +56,14 @@ CREATE TABLE comments(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (publication_id) REFERENCES publications(publication_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES user_base(user_id) ON DELETE CASCADE
+);
+CREATE TABLE meetings(
+    meet_id INTEGER AUTO_INCREMENT PRIMARY KEY, 
+    publication_id INTEGER NOT NULL, 
+    datetime DATETIME NOT NULL, 
+    type_meet VARCHAR(100), 
+    url_meet TEXT NOT NULL, 
+    FOREIGN KEY (publication_id) REFERENCES publications(publication_id) ON DELETE CASCADE
 );
 
 CREATE TABLE proyects(

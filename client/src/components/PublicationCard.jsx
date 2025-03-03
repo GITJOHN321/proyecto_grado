@@ -8,7 +8,7 @@ function PublicationCard(field) {
   const [vermas, setVermas] = useState(false);
   const {
     openFormPublication,
-    setOpenFormPublication,
+    setOpenFormPublication, 
     publications,
     setPublications,
     setPublication,

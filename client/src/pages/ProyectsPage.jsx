@@ -1,5 +1,5 @@
 import { usePublication } from "../context/PublicationsContext.jsx";
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import filterAtribute from "../config/filter.js";
 import { WORD_LIST } from "../config/config.js";
@@ -8,7 +8,6 @@ function PublicationPage() {
   const [proyects, setProyects] = useState([]);
   const [list_proyects, setListProyects] = useState([]);
   const { getAllProyects } = usePublication();
-
   /////////////////////////////////////////////
 
   const wordList = WORD_LIST;
@@ -59,6 +58,7 @@ function PublicationPage() {
     setInputValue("");
   };
   ///////////////////////////////////////////
+  
 
   useEffect(() => {
     async function loadProyects() {
@@ -115,7 +115,7 @@ function PublicationPage() {
           ) : (
             <>
               {list_proyects.map((proyect, i) => (
-                <CardProyect key={i} proyect={proyect}></CardProyect>
+                <CardProyect key={i} proyect={proyect} permission={false}></CardProyect>
               ))}
             </>
           )}

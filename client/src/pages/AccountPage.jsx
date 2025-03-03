@@ -3,13 +3,14 @@ import { useForm } from "react-hook-form";
 import { LIST_PERFIL_JAC } from "../config/config";
 import NavbarOptions from "../components/navbarOptions";
 import { SETTINGS_JACS } from "../config/config";
+import { SETTINGS_USERS } from "../config/config";
 
 function AccountPage() {
   const { user } = useAuth();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }, 
   } = useForm();
   let LIST_PERFIL = [];
   if (user.user_type === "user_jac") {
@@ -32,7 +33,7 @@ function AccountPage() {
   });
   return (
     <div className="px-20">
-       <NavbarOptions buttons={SETTINGS_JACS}></NavbarOptions>
+       <NavbarOptions buttons={user.user_type === "user_jac" ? SETTINGS_JACS : SETTINGS_USERS}></NavbarOptions>
       <div className="container-form">
         <div className="container-into-form">
           <h1 className="head ">Actualizar Datos </h1>

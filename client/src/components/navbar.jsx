@@ -73,25 +73,27 @@ function Navbar() {
                 <ul
                   className={`Dropdown-menu ${isOpen ? "active" : "inactive"}`}
                 >
+                  {user.user_type === "user_jac" && (
+                    <>
+                      <DropdownItem
+                        favicon={<MdLogout />}
+                        url={`/jacs/${user.user_id}`}
+                        text={"Mi Perfil"}
+                      />
+                      <DropdownItem
+                        favicon={<MdLogout />}
+                        url={"/settings/my-projects"}
+                        text={"Mis Proyectos"}
+                      />
+                    </>
+                  )}
+
                   <DropdownItem
                     favicon={<MdLogout />}
-                    url={"#"}
-                    text={"Mi Perfil"}
-                  />
-                  <DropdownItem
-                    favicon={<MdLogout />}
-                    url={"/settings/my-projects"}
-                    text={"Mis Proyectos"}
-                  />
-                  <DropdownItem
-                    favicon={<MdLogout />}
-                    url={"#"}
-                    text={"Mis Publicaciones"}
-                  />
-                  <DropdownItem
-                    favicon={<MdLogout />}
-                    url={user.user_type === "user_jac" ? "/settings/cuenta" : "/"}
-                    text={"Settings"}
+                    url={
+                      user.user_type === "user_jac" ? "/settings/cuenta" : "/"
+                    }
+                    text={"Mi cuenta"}
                   />
                   <DropdownItem
                     onClick={() => {
