@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { verify_table } from "../libs/verifyTable.js";
 import { createAccesToken, getTokenData } from "../libs/jwt.js";
 import { TYPE_USER, TYPE_JAC } from "../config.js";
+import { LIST_ROLES } from "../../client/src/config/config.js";
 
 export const register_jac = async (req, res) => {
   const {
@@ -34,6 +35,7 @@ export const register_jac = async (req, res) => {
       "INSERT INTO jacs(user_id, personery, commune, neighborhood) VALUES (?,?,?,?)",
       [user_base.insertId, personery, commune, neighborhood]
     );
+    LIST_ROLES.map(async(rolname) => await  conex.query("INSERT INTO roles(jac_id, rolname) VALUES (?,?)",[user_base.insertId, rolname]))
     await conex.commit();
     res.json({
       id: user_base.insertId,

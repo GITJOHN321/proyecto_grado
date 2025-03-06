@@ -57,7 +57,7 @@ function ProyectDetailPage() {
       ) : ( 
         <div>
           {openFormNote && <FromNote id={id}></FromNote>}
-          <div className="grid grid-flow-row-dense grid-cols-1 pt-5 lg:grid-cols-3 grid-row-2 px-10 sm:px-24 xl:px-52 gap-x-4">
+          <div className="grid grid-flow-row-dense grid-cols-1  grid-row-2 px-10 sm:px-24 xl:px-52 gap-x-4 xl:mx-20">
             <div className="lg:col-span-2 child-grid">
               <ProyectGeneralInfo proyect={proyect}></ProyectGeneralInfo>
             </div>
@@ -81,9 +81,7 @@ function ProyectDetailPage() {
                 ))}
               </div>
             </div>
-            <div className="lg:col-span-1 child-grid">
-              <h1>Historial de informes</h1>
-            </div>
+        
           </div>
         </div>
       )}

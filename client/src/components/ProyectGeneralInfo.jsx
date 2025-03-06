@@ -33,35 +33,41 @@ function ProyectGeneralInfo(f) {
           alt=""
         />
       </div>
-      <div className=" pt-4">
-        <h1 className="text-xl font-bold">Objetivo:</h1>
-        <p>{proyect.object}</p>
-      </div>
-      <div className="grid sm:grid-cols-2 py-4">
-        <h3 className="subtitle">
-          <p className="inline-block font-bold">Presupuesto Inicial: </p>{" "}
-          {proyect.initial_budget}
-        </h3>
-        <h3 className="subtitle">
-          <p className="inline-block font-bold">Lugar: </p> {proyect.location}
-        </h3>
-        <h3 className="subtitle">
-          <p className="inline-block font-bold">Fecha de inicio: </p>{" "}
-          {proyect.start_date}
-        </h3>
-        <h3 className="subtitle">
-          <p className="inline-block font-bold">Estado: </p> {proyect.state}
-        </h3>
-        <h3 className="subtitle">
-          <p className="inline-block font-bold">Tiempo estimado: </p>{" "}
-          {proyect.stimated_time}
-        </h3>
-        <h3 className="subtitle">
-          <p className="inline-block font-bold">Presupuesto Inicial: </p>{" "}
-          {proyect.initial_budget}
-        </h3>
-      </div>
-    </div>
+ 
+          <div className="grid sm:grid-cols-2 py-4 items-center">
+            <div className=" pt-4">
+              <h1 className="text-xl font-bold">Objetivo:</h1>
+              <p>{proyect.object}</p>
+            </div>
+            <Link className="link" to={`/jacs/${proyect.jac_id}`}>Ver Perfil JAC</Link>
+          </div>
+          <div className="grid sm:grid-cols-2 py-4 ">
+            <h3 className="subtitle flex ">
+              <p className="inline-block font-bold">Presupuesto Inicial: </p>{" "}
+              {proyect.initial_budget}
+            </h3>
+            <h3 className="subtitle">
+              <p className="inline-block font-bold">Lugar: </p>{" "}
+              {proyect.location}
+            </h3>
+            <h3 className="subtitle">
+              <p className="inline-block font-bold">Fecha de inicio: </p>{" "}
+              {proyect.start_date}
+            </h3>
+            <h3 className="subtitle">
+              <p className="inline-block font-bold">Estado: </p> {proyect.state}
+            </h3>
+            <h3 className="subtitle">
+              <p className="inline-block font-bold">Tiempo estimado: </p>{" "}
+              {proyect.stimated_time}
+            </h3>
+            <h3 className="subtitle ">
+              <p className="inline-block font-bold ">Presupuesto Inicial: </p>{" "}
+              {proyect.initial_budget}
+            </h3>
+          </div>
+        </div>
+  
   );
 }
 

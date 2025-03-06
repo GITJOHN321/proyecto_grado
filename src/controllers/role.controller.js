@@ -38,7 +38,7 @@ export const asingRolUser = async (req, res) => {
   console.log(rol_id)
   try {
     const [result] = await pool.query(
-      "SELECT * FROM users WHERE dni = ?",
+      "SELECT * FROM users WHERE dni = ?", 
       [dni]
     );
     if (!result[0]) return res.status(400).json(["DNI not found"]);

@@ -129,7 +129,7 @@ function JacsListPage() {
                           </h3>
                           <h3 className="subtitle">
                             <p className="inline-block font-bold">Comuna: </p>{" "}
-                            {jac.comune}
+                            {jac.commune}
                           </h3>
                         </div>
                       </div>

@@ -2,6 +2,7 @@ import { usePublication } from "../context/PublicationsContext";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import formatFecha from "../config/convertdate";
+import { useState } from "react";
 function FormReunion() {
   const {
     openFormReunion,
@@ -19,10 +20,19 @@ function FormReunion() {
     formState: { errors },
   } = useForm();
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [type_meet, setTypeMeet] = useState(meet ? meet.type_meet : null)
+  const handleSelect = (option) => {
+    setTypeMeet(option)
+    setIsOpen(false); // Cierra el menú después de seleccionar
+  };
+
   const addField = (field) => {
     let newfield = field;
     setMeetings([newfield, ...meetings]);
   };
+
+
 
   const updateField = (field) => {
     const index = meetings.findIndex(
@@ -45,6 +55,7 @@ function FormReunion() {
     data.type = "meet";
     data.datetime = `${data.date}T${data.hour}:00.000Z`;
     data.created_at = new Date();
+    data.type_meet = type_meet
 
     if (meet) {
       data.publication_id = meet.publication_id;
@@ -88,16 +99,45 @@ function FormReunion() {
             {errors.content && (
               <span className="text-red-500">description is required</span>
             )}
-            <input
-              type="text"
-              {...register("type_meet", { required: true })}
-              className="w-full input px-4 py-2 rounded-md my-2"
-              placeholder="Tipo de reunión (presencial, virtual)"
-              defaultValue={meet && meet.type_meet}
-            />
-            {errors.type_meet && (
-              <span className="text-red-500">type_meet is required</span>
-            )}
+            <label className="font-sans font-semibold text-sm">
+              Selecciona el tipo de reunión
+            </label>
+
+            <div className="relative py-2">
+              {/* Botón para abrir/cerrar el menú */}
+              <button
+                type="button"
+                onClick={(e) =>  setIsOpen(!isOpen)}
+                className="py-1 px-2 bg-slate-600 hover:bg-sky-500 text-white font-medium text-sm rounded-lg"
+              >
+                Tipo de Runión
+              </button>
+
+              {/* Menú desplegable */}
+              {isOpen && (
+                <div className="absolute left-0 mt-2 w-40 bg-white border border-gray-300 rounded-lg shadow-lg">
+                  <ul className="py-2 text-gray-700">
+                    <li
+                      onClick={() => handleSelect("presencial")}
+                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                      presencial
+                    </li>
+                    <li
+                      onClick={() => handleSelect("virtual")}
+                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                      virtual
+                    </li>
+                  </ul>
+                </div>
+              )}
+              <span className="inline-block px-5 align-baseline">{type_meet}</span>
+            </div>
+              
+            <label className="font-sans font-semibold text-sm">
+              Fecha de la reunión
+            </label>
             <input
               type="date"
               {...register("date", { required: true })}
@@ -108,6 +148,9 @@ function FormReunion() {
             {errors.date && (
               <span className="text-red-500">type_meet is required</span>
             )}
+            <label className="font-sans font-semibold text-sm">
+              Hora de la reunión
+            </label>
             <input
               type="time"
               {...register("hour", { required: true })}
@@ -118,11 +161,14 @@ function FormReunion() {
             {errors.hour && (
               <span className="text-red-500">type_meet is required</span>
             )}
+            <label className="font-sans font-semibold text-sm">
+              {type_meet =="presencial" ? "Lugar" : "URL"}
+            </label>
             <input
-              type="text"
+              type={type_meet == "presencial" ? "text":"url"}
               {...register("url_meet", { required: true })}
               className="w-full input px-4 py-2 rounded-md my-2"
-              placeholder="Dirección o lugar"
+              placeholder={type_meet == "presencial" ? "Dirección o lugar": "Pega la URL de la reunión"}
               defaultValue={meet && meet.url_meet}
             />
             {errors.url_meet && (

@@ -55,7 +55,7 @@ li{
 @layer utilities {
 
     .inputFull {
-        @apply input w-full px-4 py-2 rounded-md my-2 border-2 border-black
+        @apply input w-full px-4 py-2 rounded-md my-2 border-2
     }
 
     .button {

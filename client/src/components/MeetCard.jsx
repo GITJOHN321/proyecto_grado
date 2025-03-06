@@ -59,14 +59,16 @@ function MeetCard(field) {
           {meet.type_meet}
         </h2>
         <h2 className="subtitle">
-          <p className="inline-block font-semibold">Dirección: </p>
+          <p className="inline-block font-semibold">{meet.type_meet == "virtual" ? "Enlace:" : "Dirección:"} </p>
           &nbsp;
-          <Link
-            to={meet.type_meet == "virtual" ? meet.url_meet : ""}
-            className={meet.type_meet == "virtual" ? "link" : ""}
+          {meet.type_meet == "virtual" ? (<Link
+            to={meet.url_meet}
+            className="link"
+            target="_blank"
           >
             {meet.url_meet}
-          </Link>
+          </Link>): meet.url_meet}
+          
         </h2>
       </div>
     </div>

@@ -88,7 +88,7 @@ export const PubliProvider = ({ children }) => {
 
   const createPublication = async (user) => {
     try {
-      const res = await createNoteProyectRequest(user);
+      const res = await postPublication(user);
       return res.data;
     } catch (error) {
       setErrors(error.response.data);

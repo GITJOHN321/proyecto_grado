@@ -33,9 +33,7 @@ function PerfilJac(field) {
                 <p className="font-bold">Datos de contacto</p>
                 <p className="subtitle">{jac.email}</p>
                 <p className="subtitle">{jac.telephone}</p>
-                <div className=" items-center">
-                  <Link className="link">Ver Proyectos</Link>
-                </div>
+            
               </div>
             </div>
           </div>

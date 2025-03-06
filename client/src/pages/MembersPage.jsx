@@ -4,10 +4,17 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import NavbarOptions from "../components/navbarOptions.jsx";
 import { SETTINGS_JACS } from "../config/config.js";
+import { LIST_ROLES } from "../config/config.js";
 
 function MembersPage() {
-  const { user, getListRoles, getListRolesUser, reload, removeRolUser, resetErrors } =
-    useAuth();
+  const {
+    user,
+    getListRoles,
+    getListRolesUser,
+    reload,
+    removeRolUser,
+    resetErrors,
+  } = useAuth();
   const [rolesUser, setRolesUser] = useState([]);
   const [rolUser, setRolUser] = useState("");
   const [listRoles, setlistRoles] = useState([]);
@@ -17,11 +24,11 @@ function MembersPage() {
     data.splice(index, 1);
     setRolesUser(data);
   };
-  const selectRolUser = (evt, e) => {
+  const selectRolUser = (evt) => {
     evt.preventDefault();
-
-    setRolUser(e);
-    resetErrors()
+    console.log(evt);
+    setRolUser(null);
+    resetErrors();
   };
   useEffect(() => {
     async function loadRoles() {
@@ -62,15 +69,6 @@ function MembersPage() {
                     <td>
                       <Link
                         onClick={(evt) => {
-                          console.log(rol);
-                          selectRolUser(evt, rol);
-                        }}
-                        className="pl-2 text-cyan-600"
-                      >
-                        Edit
-                      </Link>
-                      <Link
-                        onClick={(evt) => {
                           deleteRolUser(rol, i);
                         }}
                         className="pl-2 text-cyan-600"
@@ -82,18 +80,9 @@ function MembersPage() {
                 ))}
               </tbody>
             </table>
-            <div>
-              <Link
-                onClick={(evt) => {
-                  resetErrors()
-                  setRolUser(null)
-                }}
-                className="pl-2 text-cyan-600"
-              >
-                Añadir nuevo Rol
-              </Link>
-            </div>
-            <FormMember listRoles={listRoles} rol={rolUser}></FormMember>
+
+            <FormMember listRoles={listRoles} ></FormMember>
+           
           </div>
         </div>
       </section>

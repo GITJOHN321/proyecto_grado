@@ -66,7 +66,7 @@ function CardProyect(field) {
         </div>
       </header>
 
-      <div className="relative max-h-52 overflow-auto p-4 text-gray-800">
+      <div className=" max-h-52 overflow-auto p-4 text-gray-800">
         <p className="">
           {proyect.description} simplemente el texto de relleno de las imprentas
           y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar

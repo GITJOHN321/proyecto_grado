@@ -1,0 +1,1 @@
+export const LIST_ROLES = ["presidente", "vicepresidente", "tesorero", "secretario", "coordinador"]

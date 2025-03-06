@@ -45,6 +45,7 @@ function FormPublication() {
 
   const onSubmit = handleSubmit(async (data) => {
     data.public_ = true;
+    data.type = "publication"
 
     if (publication) { 
       data.id = publication.publication_id;

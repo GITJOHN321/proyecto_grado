@@ -30,7 +30,7 @@ CREATE TABLE roles(
     rol_id INTEGER AUTO_INCREMENT PRIMARY KEY,
     jac_id INTEGER NOT NULL,
     user_id INTEGER UNIQUE, 
-    rolname VARCHAR(50) UNIQUE NOT NULL,
+    rolname VARCHAR(50)  NOT NULL,
     FOREIGN KEY (jac_id) REFERENCES jacs(user_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE SET NULL
 );

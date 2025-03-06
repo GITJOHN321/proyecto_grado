@@ -42,7 +42,7 @@ function Navbar() {
         </Link>
       )}
 
-      <ul className="grid grid-cols-3">
+      <ul className="grid grid-cols-2 sm:grid-cols-3">
         <li className="flex justify-center">
           <Link
             to="/"
@@ -51,18 +51,20 @@ function Navbar() {
             Proyecto JAC
           </Link>
         </li>
-        <li className="flex justify-center">
-          <Link className="px-2" to="/">
-            INICIO
-          </Link>
-          <Link className="px-2" to="/Proyects">
-            PROYECTOS
-          </Link>
-          <Link className="px-2" to="/jacs">
-            JACS
-          </Link>
+        <li className=" hidden sm:flex justify-center">
+          <div className="flex justify-center">
+            <Link className="px-2 hidden sm:block" to="/">
+              INICIO
+            </Link>
+            <Link className="px-2 hidden sm:block" to="/Proyects">
+              PROYECTOS
+            </Link>
+            <Link className="px-2 hidden sm:block" to="/jacs">
+              JACS
+            </Link>
+          </div>
         </li>
-        <li className="flex justify-center">
+        <li className="flex justify-center col-span-1">
           {isAuthenticated ? (
             <div className="relative flex flex-col items-center" ref={menuRef}>
               <button
@@ -73,6 +75,16 @@ function Navbar() {
                 <ul
                   className={`Dropdown-menu ${isOpen ? "active" : "inactive"}`}
                 >
+                  <Link to="/jacs" className="sm:hidden">
+                    <li className="Dropdown-item">
+                    <MdLogout />&nbsp;JACS
+                    </li>
+                  </Link>
+                  <Link to="/Proyects" className="sm:hidden">
+                    <li className="Dropdown-item">
+                    <MdLogout />&nbsp;PROYECTOS
+                    </li>
+                  </Link>
                   {user.user_type === "user_jac" && (
                     <>
                       <DropdownItem
@@ -87,6 +99,8 @@ function Navbar() {
                       />
                     </>
                   )}
+                  
+             
 
                   <DropdownItem
                     favicon={<MdLogout />}
@@ -114,7 +128,7 @@ function Navbar() {
               </Link>
 
               <Link to="/register" className="hover:text-sky-500 px-1">
-                Register
+                Registrarse
               </Link>
             </>
           )}

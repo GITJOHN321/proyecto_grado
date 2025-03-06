@@ -32,7 +32,7 @@ function LoginPage() {
   return (
     <div className="container-form-center">
       <div className="container-into-form">
-        <h1 className="head">Login</h1>
+        <h1 className="head">Inicia Sesion</h1>
         {signinErrors.map((error, i) => (
           <div className="bg-red-500 p-2 text-white text-center" key={i}>
             {error}
@@ -44,7 +44,7 @@ function LoginPage() {
             type="email"
             {...register("email", { required: true })}
             className="w-full input px-4 py-2 rounded-md my-2"
-            placeholder="Email"
+            placeholder="Correo electrónico"
           />
           {errors.email && (
             <span className="text-red-500">email is required</span>
@@ -53,20 +53,20 @@ function LoginPage() {
             type="password"
             {...register("password", { required: true })}
             className="w-full input px-4 py-2 rounded-md my-2"
-            placeholder="Password"
+            placeholder="Contraseña"
           />
           {errors.password && (
             <span className="text-red-500">password is required</span>
           )}
           <button type="submit" className="button block">
             {" "}
-            Login{" "}
+            Inicia Sesion{" "}
           </button>
         </form>
         <p className="flex gap-x-2 justify-between px-10">
-          Don't have an account?
+          ¿No tienes una Cuenta?
           <Link to="/register" className="link">
-            Sign up
+            Registrate
           </Link>
         </p>
       </div>
