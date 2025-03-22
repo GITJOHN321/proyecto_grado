@@ -23,7 +23,7 @@ app.use(
 
 
 
-app.use(cors({   origin: 'http://prueba.yosoydeaquicali.com', allowedHeaders: ['Content-Type', 'Authorization'] // Encabezados permitidos}));
+app.use(cors({   origin: 'http://prueba.yosoydeaquicali.com', allowedHeaders: ['Content-Type', 'Authorization']}));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/", authRoutes);
