@@ -23,7 +23,7 @@ app.use(
 
 
 
-app.use(cors({ origin: "http://prueba.yosoydeaquicali.com", credentials: true }));
+app.use(cors({ origin: "http://prueba.yosoydeaquicali.com:80", credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/", authRoutes);
