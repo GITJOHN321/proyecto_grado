@@ -23,7 +23,7 @@ app.use(
 
 
 
-app.use(cors({   origin: 'http://prueba.yosoydeaquicali.com',
+app.use(cors({   origin: 'https://prueba.yosoydeaquicali.com',
   methods: ['GET', 'POST', 'PUT', 'DELETE'], 
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true}));
