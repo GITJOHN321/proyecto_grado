@@ -124,7 +124,7 @@ export const login = async (req, res) => {
       return key === "password" ? undefined : value;
     });
 
-    res.cookie("token", token{
+    res.cookie("token", token,{
     httpOnly: true,
     secure: true,               // Solo se envía por HTTPS
     sameSite: 'None',           // Para permitir cross-origin
