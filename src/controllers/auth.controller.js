@@ -128,7 +128,8 @@ export const login = async (req, res) => {
     httpOnly: true,
     secure: true,               // Solo se envía por HTTPS
     sameSite: 'None',           // Para permitir cross-origin
-    maxAge: 24 * 60 * 60 * 1000 // 1 día en ms
+    maxAge: 24 * 60 * 60 * 1000, // 1 día en ms
+    domain: '.yosoydeaquicali.com'
   });
     res.send(jsonSinPassword);
   } catch (error) {
