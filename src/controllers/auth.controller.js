@@ -127,9 +127,8 @@ export const login = async (req, res) => {
     res.cookie("token", token,{
     httpOnly: true,
     secure: true,               // Solo se envía por HTTPS
-    sameSite: 'None',           // Para permitir cross-origin
-    maxAge: 24 * 60 * 60 * 1000, // 1 día en ms
-    domain: '.yosoydeaquicali.com'
+    sameSite: 'Strict',           // Para permitir cross-origin
+    maxAge: 86400000, // 1 día en ms
   });
     res.send(jsonSinPassword);
   } catch (error) {
