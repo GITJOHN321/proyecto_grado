@@ -127,7 +127,7 @@ export const login = async (req, res) => {
     res.cookie("token", token,{
     httpOnly: true,
     secure: true,               // Solo se envía por HTTPS
-    sameSite: 'strict',           // Para permitir cross-origin
+    sameSite: 'none',           // Para permitir cross-origin
     maxAge: 86400000, // 1 día en ms
   });
     res.send(jsonSinPassword);
