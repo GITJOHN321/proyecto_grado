@@ -24,9 +24,8 @@ app.use(
 
 
 app.use(cors({
-  origin: "https://prueba.yosoydeaquicali.com", // solo ese dominio
-  methods: "GET,POST,PUT,DELETE,OPTIONS",
-  allowedHeaders: "Content-Type,Authorization"
+  origin: "https://prueba.yosoydeaquicali.com",
+  credentials: true
 }));
 
 app.use(express.json());
