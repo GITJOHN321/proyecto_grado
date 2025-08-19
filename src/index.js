@@ -24,12 +24,11 @@ app.use(
 
 
 app.use(cors({
-    origin: "https://prueba.yosoydeaquicali.com",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
+  origin: "https://prueba.yosoydeaquicali.com", // solo ese dominio
+  methods: "GET,POST,PUT,DELETE,OPTIONS",
+  allowedHeaders: "Content-Type,Authorization"
+}));
+
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/", authRoutes);
